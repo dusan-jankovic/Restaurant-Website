@@ -1,0 +1,24 @@
+{
+  "name": "restaurant_website",
+  "version": "1.0.0",
+  "description": "Project1: Restaurant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dusan",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^3.9.1",
+    "gulp-cleancss": "^0.2.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "node-sass": "^4.13.0"
+  },
+  "devDependencies": {
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-connect-php": "^1.0.3",
+    "gulp-sass": "^4.0.2",
+    "gulp-watch": "^5.0.1"
+  }
+}
