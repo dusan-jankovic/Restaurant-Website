@@ -7,30 +7,31 @@
     <meta name="keywords" content="drink, food">
     <meta name="author" content="Dusan Jankovic">
     <title>Toca Madera</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <!-- <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/footer.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran&display=swap" rel="stylesheet">
+
   </head>
   <body>
-
     <header>
       <div class="header-notification">
-        <p>Our Scottsdale location is now OPEN | <a href="#">Reservations</a><i class="fa fa-close"></i></p>
+        <p>Our Scottsdale location is now <span>OPEN</span> | <a href="#">Reservations</a><i id='close' class="fa fa-close"></i></p>
       </div>
       <nav>
         <div class="logo">
-          <img src="" alt="logo_img">
+          <img src="assets/images/logo.png" alt="website_logo_image">
         </div>
         <div class="header-menu">
-          <ul>
+          <ul class='main-ul'>
             <li><a href="">Experience</a></li>
-            <li>
-              <a href="">Menus<i class="fa fa-angle-down"></i></a>
-                 <ul>
+            <li class='li-dropdown'>
+               Menus<i class="fa fa-angle-down"></i>
+                 <ul class="sub-ul">
                    <li><a href="">Overview</a></li>
-                   <li><a href="">Scottsdale</a></li>
+                   <li><a href="">Scottsdale Dinner Menu</a></li>
                    <li><a href="">Los Angeles Dinner Menu</a></li>
                    <li><a href="">Vegan Dinner Menu</a></li>
                    <li><a href="">Dinner Cocktails</a></li>
@@ -40,16 +41,16 @@
                    <li><a href="">Los Angeles Brunch Cocktails</a></li>
                  </ul>
             </li>
-            <li>
-              <a href="">Events<i class="fa fa-angle-down"></i></a>
-                <ul>
+            <li class='li-dropdown'>
+                Events<i class="fa fa-angle-down"></i>
+                <ul class="sub-ul">
                   <li><a href="">Our Calendar</a></li>
                   <li><a href="">Book your Event</a></li>
                 </ul>
             </li>
-            <li>
-              <a href="">Locations<i class="fa fa-angle-down"></i></a>
-                <ul>
+            <li class='li-dropdown'>
+              Locations<i class="fa fa-angle-down"></i>
+                <ul class="sub-ul">
                   <li><a href="">West Hollywood</a></li>
                   <li><a href="">Scottsdale</a></li>
                 </ul>
@@ -130,6 +131,7 @@
       </div>
     </footer>
 
+    <script src='assets/js/header.js'></script>
 
   </body>
 </html>
