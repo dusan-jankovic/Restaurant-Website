@@ -60,4 +60,13 @@ document.addEventListener('click', closeDropDownMenu)
       }
   }
 
+  //show/hide menu for tablets/mobiles when user click on menu icon - Begin
+  document.getElementsByClassName('menu-icon')[0].onclick = ()=> {
+  document.getElementsByClassName('header-menu2')[0].classList.toggle("activeSdMenu")
+  document.getElementsByClassName('top')[0].classList.toggle('activeTop')
+  document.getElementsByClassName('mid')[0].classList.toggle('activeMid')
+  document.getElementsByClassName('bot')[0].classList.toggle('activeBot')
+}
+  //show/hide menu for tablets/mobiles when user click on menu icon - End
+
 //script for dropdown menu - End

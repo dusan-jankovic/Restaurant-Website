@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  letter-spacing: 1.3px; }
+
+a {
+  text-decoration: none; }
+
+ul {
+  list-style-type: none; }

@@ -1,0 +1,278 @@
+@import 'variables';
+
+body {
+  background: url('../images/background.png');
+  color: #fff;
+  background-color: #111;
+  font-family: $font;
+}
+.header-notification {
+  text-align: center;
+  height: 45px;
+  padding-top: 10px;
+  overflow-y: hidden;
+  font-size: 14px;
+  position: relative;
+   span {
+     font-size: 15px;
+   }
+   a {
+     color: #6b6b6b;
+     transition: .5s color;
+      &:hover {
+        color: $hoverColor;
+      }
+   }
+   i {
+     position: absolute;
+     right: 15px;
+     font-size: 13px;
+     transition: .3s color;
+     cursor: pointer;
+     &:hover {
+       color: $hoverColor;
+     }
+   }
+}
+header {
+  nav {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 2% 0;
+    background: linear-gradient(#000, rgba(0,0,0,0));
+     .logo {
+       img {
+         width: 310px;
+       }
+     }
+     .header-menu {
+         .main-ul {
+           display: flex;
+           text-transform: $bigText;
+           font-size: .92em;
+           margin-top: 10px;
+            li {
+              margin: 0 .7em;
+              position: relative;
+              cursor: pointer;
+              transition: .4s color;
+              z-index: 5;
+              &:hover {
+                color: $hoverColor;
+              }
+              & a:hover {
+                color: $hoverColor;
+              }
+               a {
+                 color: #fff;
+                 transition: .4s color;
+               }
+               .reservation-button {
+                 @include goldButton;
+                  &:hover {
+                    @include buttonTransition;
+                  }
+               }
+               i {
+                 margin-left: 5px;
+                 transition: .3s transform;
+               }
+          }
+          .sub-ul {
+            display: none;
+            padding-left: 5px;
+            padding-top:7px;
+            padding-bottom: 7px;
+            background: #111;
+            width: 140px;
+            font-size: .8em;
+            position: absolute;
+              li {
+                margin: 8px 0;
+                padding-left: 8px;
+                font-weight: 600;
+              }
+              a {
+                display: block;
+              }
+          }
+        }//.main-ul/>
+     }//.header-menu/>
+
+     .menu-icon {
+       display: none;
+     }
+     .header-menu2 {
+       width: 100vw;
+       height: 100%;
+       background: rgb(17, 17, 17);
+       position: fixed;
+       z-index: 2;
+       top: -100%;
+       transition: .4s top ease-in;
+       left: 0;
+       display: none;
+        .wrapper {
+          overflow-y: scroll;
+          height: 600px;
+        }
+        .main-ul {
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 65px;
+           li {
+             width: 100%;
+             text-align: center;
+             font-size: 1.5em;
+             letter-spacing: 3.5px;
+             margin: 9px 0;
+           }
+           .sub-ul{
+             position: relative;
+             text-align: center;
+             width: 100%;
+             height: 100%;
+              li {
+                font-size: .9em;
+              }
+           }
+        }
+        .social-net-ul {
+          display: flex;
+          justify-content: center;
+          padding: 20px;
+          border-top:2px solid #966;
+          width: 90%;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 30px;
+           a {
+             height: 26px;
+             width: 26px;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             background: #fff;
+             border-radius: 50%;
+             margin-left: 5px;
+             margin-right: 5px;
+             transition: .8s background;
+             &:hover, &:active  {
+               background: $hoverColor;
+             }
+             i {
+               color: #111;
+               font-size: 16.5px;
+               text-align: center;
+               letter-spacing: 0;
+             }
+           }
+        }//social-net-ul/>
+        .website-author {
+          padding: 20px;
+          text-align: center;
+          color: #fff;
+          background: #000;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          text-transform: uppercase;
+        }
+     }
+      .menu-icon {
+        position: fixed;
+        top: 55px;
+        right: 12px;
+        z-index: 10;
+        transition: .5s background;
+         &:hover div {
+           background: $hoverColor;
+         }
+        cursor: pointer;
+        div {
+          width: 24.5px;
+          border-radius: .7px;
+          height: 3.5px;
+          margin: 5px 0;
+          background: #966;
+          box-shadow: 0 0 10px 1px #000;
+          transform-origin: 0% 50%;
+          transition: transform .15s;
+          opacity: 1;
+        }
+        .mid {
+          transform-origin: 40% 139%;
+          transition: transform .1s, opacity .1s;
+        }
+        .activeTop {
+          transform: rotate(43deg);
+          box-shadow:0 0 0;
+        }
+        .activeMid {
+          transform: rotate(-43deg);
+          box-shadow:0 0 0;
+          opacity: 0;
+        }
+        .activeBot {
+          transform: rotate(-43deg);
+          box-shadow:0 0 0;
+        }
+      }
+      .activeSdMenu {
+        top:0;
+      }
+  }//nav/>
+}//header/>
+
+
+
+
+
+//responisve - Begin
+ @media only screen and (max-width:769px){
+   header nav .logo {
+     img {
+       width: 230px;
+     }
+   }
+  header nav .header-menu {
+     display: none;
+   }
+   header nav .menu-icon, header nav .header-menu2 {
+     display: block;
+   }
+ }
+ @media only screen and (max-width:416px){
+   header {
+     position: relative;
+   }
+   .header-notification{
+     height: 60px;
+      p {
+        padding-bottom: 8px;
+        width: 83%;
+        margin:0 auto;
+        font-size: 13px;
+      }
+      #close {
+        position: absolute;
+        top: 9px;
+        right: 7px;
+      }
+   }
+ }
+ @media only screen and (max-width:426px){
+   header nav .header-menu2 .main-ul li {
+           font-size: 1.3em;
+           letter-spacing: 3.3px;
+           margin: 7px 0;
+         }
+         .website-author {
+           font-size:13px;
+         }
+}
+//responisve - End
