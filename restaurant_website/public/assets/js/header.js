@@ -69,4 +69,16 @@ document.addEventListener('click', closeDropDownMenu)
 }
   //show/hide menu for tablets/mobiles when user click on menu icon - End
 
+//onscroll add background color to navigation bar add css property "fixed"
+window.onscroll = function() {navigation()};
+
+function navigation() {
+  if (document.body.scrollTop > 45 || document.documentElement.scrollTop > 45) {
+    document.getElementsByTagName("nav")[0].className = "headerOnScroll";
+  } else {
+    document.getElementsByTagName("nav")[0].className = "";
+  }
+}
+
+
 //script for dropdown menu - End
