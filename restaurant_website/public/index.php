@@ -9,8 +9,8 @@
     <title>Toca Madera</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/header.css">
-    <!-- <link rel="stylesheet" href="assets/css/home.css">
-    <link rel="stylesheet" href="assets/css/footer.css"> -->
+    <link rel="stylesheet" href="assets/css/home.css">
+    <!-- <link rel="stylesheet" href="assets/css/footer.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Catamaran&display=swap" rel="stylesheet">
 
@@ -122,13 +122,12 @@
 
     <main>
       <div class="slide-show">
-        <div class="slide">
-          <img src="" alt="">
-            <i class="fa fa-circle"></i>
+          <div class='dot-container'>
+          </div>
+          <div class='arrow-container'>
             <i class="fa fa-angle-down"></i>
-        </div>
+          </div>
       </div>
-
       <div class="intro">
         <h1>Toca Madera is a modern take on traditional Mexican cuisine, featuring unique shared plates and specialty craft cocktails.</h1>
         <h3>Now Open in Los Angeles & Scottsdale</h3>
@@ -189,6 +188,7 @@
     </footer>
 
     <script src='assets/js/header.js'></script>
+    <script src='assets/js/home.js'></script>
 
   </body>
 </html>
