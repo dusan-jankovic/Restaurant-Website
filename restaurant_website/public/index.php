@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/home.css">
-    <!-- <link rel="stylesheet" href="assets/css/footer.css"> -->
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Catamaran&display=swap" rel="stylesheet">
 
@@ -124,56 +124,71 @@
       <div class="slide-show">
           <div class='dot-container'>
           </div>
+        <a href="#intro">
           <div class='arrow-container'>
             <i class="fa fa-angle-down"></i>
           </div>
+        </a>
       </div>
-      <div class="intro">
+
+
+
+      <div class="intro" id="intro">
         <h1>Toca Madera is a modern take on traditional Mexican cuisine, featuring unique shared plates and specialty craft cocktails.</h1>
         <h3>Now Open in Los Angeles & Scottsdale</h3>
             <a href="" class='reservation-button'>Reservations</a>
       </div>
 
       <div class="test-Toca">
-        <h3>TASTE. TOUCH. HEAR. EXPERIENCE.</h3>
-         <span>TOCA MADERA</span>
-           <a href="" class='reservation-button'>View Menus</a>
-            <img src="" alt="">
+        <div>
+          <h3>TASTE. TOUCH. HEAR. EXPERIENCE.</h3>
+           <span>TOCA MADERA</span>
+             <a href="" class='reservation-button'>View Menus</a>
+         </div>
       </div>
 
       <div class="latest">
         <h3>The Latest</h3>
-           <section>
-             <img src="" alt="">
-                <h4>Phoenix Magazine</h4>
-                  <p>Modern Mexican Restaurant Toca Madera debuts in Scottsdale</p>
-                  <p>View More</p>
-           </section>
-           <section>
-             <img src="" alt="">
-                <h4>Jetsetmag</h4>
-                  <p>Hot Spot: Toca Madera has conqured west Hollywood</p>
-                  <p>View More</p>
-           </section>
+          <a href="" class="section-a1">
+             <section>
+               <div>
+                 <img src="assets/images/latest1.jpg" alt="">
+               </div>
+                  <h4>Phoenix Magazine</h4>
+                    <p>Modern Mexican Restaurant Toca Madera debuts in Scottsdale</p>
+                    <p class='view-more'>View More</p>
+             </section>
+           </a>
+           <a href="" class="section-a2">
+             <section>
+               <div>
+                 <img src="assets/images/latest2.jpg" alt="">
+               </div>
+                  <h4>Jetsetmag</h4>
+                    <p>Hot Spot: Toca Madera has conqured west Hollywood</p>
+                    <p class="view-more">View More</p>
+             </section>
+           </a>
       </div>
 
       <div class="news-events">
-        <h2>News & Events</h2>
-           <p>What's Happening at Toca Madera</p>
+       <div>
+        <h3>News & Events</h2>
+           <span>What's Happening at Toca Madera</span>
             <a href="" class='reservation-button'>View More</a>
+        </div>
       </div>
 
       <div class="poster">
-        <a href="">
-          <div class="">
-            <img src="" alt="">
-          </div>
-        </a>
+
       </div>
     </main>
 
 
     <footer>
+      <div class='mobile-footer'>
+        RESERVATIONS
+      </div>
       <div class="social-net">
         <a href="#"><i class="fa fa-facebook-f"></i></a>
         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -187,6 +202,7 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
     <script src='assets/js/header.js'></script>
     <script src='assets/js/home.js'></script>
 
