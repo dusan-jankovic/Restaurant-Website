@@ -4,9 +4,11 @@ var notify = document.querySelector('.header-notification')
 var closeIcon = notify.querySelector('p').querySelector('#close')
 
  closeIcon.onclick = () => {
-   notify.style.transition = '1s height, 1s padding'
+   notify.style.transition = '.6s height, .6s padding'
    notify.style.height = '0'
    notify.style.padding = '0'
+   document.getElementsByClassName("slide-show")[0].style.transition = '.65s top'
+   document.getElementsByClassName("slide-show")[0].style.top = '0.5px'
  }
 //script for closing notification End
 
