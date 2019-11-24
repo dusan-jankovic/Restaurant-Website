@@ -46,6 +46,7 @@ header {
     justify-content: space-between;
     padding: 20px 2% 0;
     background: linear-gradient(#000, rgba(0,0,0,.1));
+    position: absolute;
      .logo {
        img {
          width: 310px;
@@ -107,6 +108,7 @@ header {
 
      .menu-icon {
        display: none;
+       transition: top .6s;
      }
      .header-menu2 {
        width: 100vw;
@@ -187,8 +189,8 @@ header {
         }
      }
       .menu-icon {
-        position: fixed;
-        top: 55px;
+        position: relative;
+        bottom: 2px;
         right: 12px;
         z-index: 10;
         transition: .5s background;
@@ -227,6 +229,7 @@ header {
       }
       .activeSdMenu {
         top:0;
+        position: fixed;
       }
   }//nav/>
 }//header/>
@@ -239,10 +242,6 @@ header {
 }
 
 
-
-
-
-//responisve - Begin
  @media only screen and (max-width:769px){
    header nav .logo {
      img {
@@ -285,4 +284,3 @@ header {
            font-size:13px;
          }
 }
-//responisve - End
