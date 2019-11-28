@@ -1,0 +1,18 @@
+$font: 'Catamaran', sans-serif;
+$buttonBorder: rgb(145, 121, 82);
+$bigText: uppercase;
+$hoverColor: rgb(145, 121, 82);
+$gold: rgb(145, 121, 82);
+$platinum: #908a81;
+@mixin goldButton {
+  padding: 6px 14px;
+  border: 2px solid $buttonBorder;
+  font-size: 15px;
+  text-transform: uppercase;
+  transition: .5s border;
+}
+@mixin buttonTransition {
+  outline: 2px solid #fff;
+  border: 2px solid transparent;
+  outline-offset: .5px;
+}

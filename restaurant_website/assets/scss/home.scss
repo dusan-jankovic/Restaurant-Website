@@ -1,0 +1,477 @@
+@import 'variables';
+
+//slideshow - Begin
+.slide-show {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+   .slide {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+     transition: .9s opacity;
+      .slideImgPlaceHolder {
+        width: 100%;
+        height: 100%;
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        animation-play-state: paused;
+        transition: 1s transform;
+        transform:scale(1.01);
+      }
+      @keyframes zoom {
+        0% {transform:scale(1.01);}
+        50% {transform:scale(1.12);}
+        100% {transform:scale(1.01);}
+      }
+   }
+
+   .dot-container {
+     position: absolute;
+     bottom: 50px;
+     left: 50%;
+     transform:translate(-50%);
+     cursor: default;
+     z-index: 8;
+      i {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 10px;
+         &:hover {
+           opacity: .98;
+         }
+      }
+   }
+   .arrow-container {
+     position: absolute;
+     bottom: 0px;
+     left: 50%;
+     transform:translate(-50%);
+     font-size: 40px;
+     z-index: 8;
+     a {
+       color: #fff;
+     }
+     i {
+       color: #fff;
+       cursor: pointer;
+     }
+   }
+}
+
+@media only screen and (max-width:921px) {
+  .slide-show .slide .slideImgPlaceHolder {
+    background-attachment: scroll;
+  }
+}
+@media only screen and (max-width:630px) {
+  .slide-show .slide .slideImgPlaceHolder {
+    background-size: 200% 100%;
+    background-position: center;
+  }
+}
+@media only screen and (max-width:426px) {
+  .slide-show .slide .slideImgPlaceHolder {
+    background-size: 240% 100%;
+    background-position: center;
+  }
+}
+@media only screen and (max-width:416px) {
+  .slide-show {
+    top: 60px;
+  }
+}
+//slideshow - End
+
+
+//intro - Begin
+.intro {
+  text-align: center;
+  margin-top: 108vh;
+  width: 100%;
+  padding: 6% 0 7%;
+    h1 {
+      font-size: 19px;
+      width: 55%;
+      margin: 0 auto;
+      font-weight: lighter;
+    }
+    h3 {
+      margin-top: 30px;
+      font-size: 23px;
+      font-weight: lighter;
+    }
+    a {
+      display: inline-block;
+      margin-top: 27px;
+      color: #fff;
+      @include goldButton;
+       &:hover {
+         @include buttonTransition;
+       }
+    }
+}
+
+@media only screen and (max-width:1025px){
+  .intro {
+    margin-top: 106vh;
+    padding: 6% 0 7%;
+      h1 {
+        font-size: 19px;
+        width: 75%;
+      }
+      h3 {
+        font-size: 22px;
+      }
+      a {
+        display: inline-block;
+        margin-top: 27px;
+        color: #fff;
+        @include goldButton;
+         &:hover {
+           @include buttonTransition;
+         }
+      }
+    }
+  }
+
+  @media only screen and (max-width:769px){
+    .intro {
+      margin-top: 106vh;
+      padding: 11% 0 12%;
+        h1 {
+          font-size: 18px;
+          line-height: 1.6em;
+          width: 85%;
+        }
+        h3 {
+          font-size: 22px;
+        }
+        a {
+          display: inline-block;
+          margin-top: 27px;
+          color: #fff;
+          @include goldButton;
+           &:hover {
+             @include buttonTransition;
+           }
+        }
+      }
+    }
+
+    @media only screen and (max-width:416px){
+      .intro {
+        margin-top: 89vh;
+        padding: 19% 0 20%;
+          h1 {
+            font-size: 19px;
+            width: 90%;
+          }
+          h3 {
+            width: 80%;
+            margin: 25px auto 0;
+            font-size: 22px;
+          }
+          a {
+            display: inline-block;
+            margin-top: 27px;
+            color: #fff;
+            @include goldButton;
+             &:hover {
+               @include buttonTransition;
+             }
+          }
+        }
+      }
+
+//intro - End
+
+
+//test-Toca - Begin
+ .test-Toca {
+   width: 100%;
+   height: 100vh;
+   position: absolute;
+   background: url('../images/intro.jpg');
+   background-size: 100% 100%;
+   background-position: center;
+   background-attachment: fixed;
+    div {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.4);
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+
+    h3 {
+      font-size: 2em;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      width: 100%;
+    }
+    span {
+      color: $gold;
+      font-size: 1.3em;
+      width: 100%;
+    }
+    a {
+      display: inline-block;
+      margin-top: 27px;
+      color: #fff;
+      @include goldButton;
+       &:hover {
+         @include buttonTransition;
+       }
+      }
+    }
+ }
+
+ @media only screen and (max-width:921px) {
+   .test-Toca {
+     background-attachment: scroll;
+   }
+ }
+ @media only screen and (max-width:850px) {
+   .test-Toca {
+     height: 60vh;
+   }
+ }
+ @media only screen and (max-width:426px) {
+   .test-Toca {
+     height: 40vh;
+     div {
+     h3 {
+       font-size: 1.7em;
+     }
+     span {
+       font-size: 1.1em;
+     }
+     a {
+       display: inline-block;
+       margin-top: 27px;
+       color: #fff;
+       @include goldButton;
+        &:hover {
+          @include buttonTransition;
+        }
+       }
+     }
+
+   }
+ }
+//test-Toca - End
+
+
+//latest - Begin
+ .latest {
+   text-align: center;
+   display: flex;
+   width: 80%;
+   margin: 0 auto;
+   margin-top: 108vh;
+   justify-content: space-around;
+   flex-wrap: wrap;
+   padding: 2% 0 7%;
+    h3 {
+      width: 100%;
+      text-transform: uppercase;
+      color: $gold;
+      font-size: 2em;
+      font-weight: lighter;
+      margin-bottom: 50px;
+    }
+    a {
+      display: block;
+      margin: 0 auto;
+      width: 45%;
+      height: 500px;
+        &:hover img {
+          transform: scale(1.1);
+        }
+    }
+    section {
+        div {
+          width: 100%;
+          height: 70%;
+          overflow: hidden;
+          img {
+            transition: 2s transform;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        h4 {
+          color: $platinum;
+          text-transform: uppercase;
+          font-size: 1.6em;
+          margin-top: 20px;
+          margin-bottom: 10px;
+        }
+        p {
+          text-transform: uppercase;
+          font-size: .93em;
+          margin-top: 5px;
+          color:#fff;
+          margin:0 auto;
+          width: 80%;
+        }
+        .view-more {
+          font-size: .9em;
+          color: $gold;
+          margin-top: 8px;
+          text-transform: none;
+        }
+    }
+ }
+
+ @media only screen and (max-width:1025px) {
+   .latest {
+     width: 95%;
+   }
+ }
+ @media only screen and (max-width:850px) {
+   .latest {
+    margin-top: 70vh;
+   }
+ }
+ @media only screen and (max-width:769px) {
+   .latest a {
+     width: 97%;
+     height: auto;
+     padding-bottom: 50px;
+   }
+ }
+ @media only screen and (max-width:426px) {
+   .latest {
+     margin-top: 50vh;
+   }
+ }
+//latest - End
+
+
+//news-events Begin
+.news-events {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background: url('../images/bar.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-attachment: fixed;
+   div {
+     text-align: center;
+     width: 100%;
+     height: 100%;
+     background: rgba(0,0,0,.4);
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     flex-wrap: wrap;
+   h3 {
+     font-size: 2em;
+     letter-spacing: 0.1em;
+     font-weight: 600;
+     width: 100%;
+     text-transform: uppercase;
+   }
+   span {
+     color: #fff;
+     font-size: .9em;
+     width: 100%;
+   }
+   a {
+     display: inline-block;
+     margin-top: 27px;
+     color: #fff;
+     @include goldButton;
+      &:hover {
+        @include buttonTransition;
+      }
+     }
+   }
+}
+
+@media only screen and (max-width:921px) {
+  .news-events {
+    background-attachment: scroll;
+  }
+}
+@media only screen and (max-width:850px) {
+  .news-events {
+    height: 60vh;
+  }
+}
+@media only screen and (max-width:426px) {
+  .news-events {
+    height: 40vh;
+  }
+}
+//news-events End
+
+
+//poster Begin
+  .poster {
+    margin-top: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+      a {
+        width: 20%;
+        height: 290px;
+        display: block;
+         &:hover img {
+           transform: scale(1.1);
+         }
+          div {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+              img {
+                transition: 2s transform;
+                width: 100%;
+                height: 105%;
+              }
+          }
+      }
+  }
+  @media only screen and (max-width:1035px) {
+    .poster a {
+      height: 150px;
+    }
+  }
+  @media only screen and (max-width:850px) {
+    .poster {
+     margin-top: 60vh;
+    }
+  }
+  @media only screen and (max-width:769px) {
+    .poster a {
+      width: 50%;
+      height: 270px;
+    }
+  }
+  @media only screen and (max-width:450px) {
+    .poster a {
+      height: 240px;
+    }
+  }
+  @media only screen and (max-width:426px) {
+    .poster {
+      margin-top: 40vh;
+    }
+  }
+  @media only screen and (max-width:400px) {
+    .poster a {
+      height: 170px;
+    }
+  }
+//poster End
