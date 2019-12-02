@@ -119,19 +119,161 @@ body {
 //menus - Begin
 .menus {
   margin-top: 100px;
+  text-transform: uppercase;
   .row {
-    margin:0 auto;
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    margin:10px auto;
+    width: 100%;
+    padding: 0 25%;
+    cursor: default;
+     div {
+       text-align: center;
+       cursor: pointer;
+
+     }
+     .scottsdale, .la-dinner-menu, .vegan {
+       width: auto;
+       margin: 0 auto;
+       transition: .4s border;
+       border:2.5px solid transparent;
+       padding: 5px 10px;
+       &:hover {
+          border:2.5px solid $gold;
+       }
+     }
+     .row-4-4 {
+       width: 90%;
+       margin:20px auto;
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: space-around;
+        div {
+          z-index: 2;
+          width: auto;
+          transition: .4s border;
+          border:2.5px solid transparent;
+          padding: 5px 10px;
+          &:hover {
+            border:2.5px solid $gold;
+          }
+        }
+     }
+     .la-brunch-cocktails {
+       width: auto;
+       margin-left: auto;
+       margin-right: auto;
+       transition: .4s border;
+       border:2.5px solid transparent;
+       padding: 5px 10px;
+         &:hover {
+           border:2.5px solid $gold;
+         }
+     }
   }
-  .row:first-of-type {
-    width: 70%;
-  }
-  .row:nth-of-type(2) {
-    width: 50%;
-  }
-  .row:last-of-type {
-    width: 50%;
+
+  // .row:first-of-type {
+  //   div {
+  //     width: 30%;
+  //     text-align: right;
+  //   }
+  //   div:nth-of-type(2){
+  //     text-align: center;
+  //   }
+  //   div:nth-of-type(3){
+  //     text-align: left;
+  //   }
+  // }
+  // .row:nth-of-type(2) {
+  //   div {
+  //     width: 25%;
+  //     text-align: right;
+  //   }
+  //   div:nth-of-type(3){
+  //     text-align: left;
+  //   }
+  //   div:nth-of-type(4){
+  //     text-align: left;
+  //   }
+  // }
+  // .row:last-of-type {
+  // }
+  .change {
+    width: 100%;
+    text-align: center;
+    text-transform: none;
+    font-size: .85em;
+    margin-top: 40px;
   }
 }
+
+@media only screen and (max-width:1380px){
+.menus  .row {
+    padding: 0 10%;
+  }
+}
+@media only screen and (max-width:850px){
+.menus  .row {
+    padding: 0 1%;
+  }
+}
+@media only screen and (max-width:680px){
+  .menus .row {
+    justify-content: center;
+    .scottsdale, .la-dinner-menu, .vegan {
+      margin: 15px 2%;
+      width: 46%;
+    }
+    .row-4-4 {
+      width: 100%;
+      margin:0px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+       div {
+         width: 44%;
+         padding: 0 2%;
+         margin: 15px;
+       }
+    }
+  }
+}
+@media only screen and (max-width:530px){
+  .menus .row {
+    justify-content: center;
+    .scottsdale, .la-dinner-menu, .vegan {
+      margin: 15px 0;
+      width: 100%;
+    }
+    .row-4-4 {
+      width: 100%;
+      margin:0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+       div {
+         width: 96%;
+         padding: 0 2%;
+         margin: 15px;
+       }
+    }
+  }
+}
+.menus .row .activeMenu, .menus .row .row-4-4 .activeMenu {
+  border:2.5px solid $gold;
+}
 //menus -End
+
+//menu-info - Begin
+.menu-info {
+  text-align: center;
+  h1 {
+  }
+  div {
+    h3 {
+      p {
+      }
+    }
+  }
+}
+//menu-info - End
