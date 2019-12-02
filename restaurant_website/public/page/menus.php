@@ -59,7 +59,7 @@
     </div>
       </div>
 
-      <div class='menu-info'></div>
+      <div class='menu-info' id='menu-info'></div>
 
 
     </main>
