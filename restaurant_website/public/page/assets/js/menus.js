@@ -271,23 +271,7 @@ var menuLists = [
           'prime skirt steak',
         ]
       }
-      },
-      {
-      salads:{
-        mainTitle:'SALADS',
-        mainContent:'add protein to any salad - choose from: organic free-range chicken organic grass-fed carne asada wild-caught grilled shrimp',
-        subtitle:[
-          'TOCA CAESAR',
-          'MEXICAN FATTOUSH',
-          'CAPRESE MEXICANA',
-        ],
-        content:[
-          'organic red leaf romaine lettuce, pepita seeds, garlic herb bread crumble, truffle manchego cheese, house-made dressing',
-          'organic hearts of romaine lettuce, cherry tomato, radish, tajin blue corn tortillas, queso fresco, red onion, cilantro, micro tangerine, roasted ancho & cortez sea salt vinaigrette',
-          'trio of fresh garlic-rubbed grilled heirloom tomatoes, grilled panela cheese, almonds, black winter truffle oil',
-        ]
       }
-    }
     ]
   },
     {veganDM:
@@ -635,6 +619,7 @@ var menu = document.getElementsByClassName('menu')
 var k = document.getElementsByClassName('row')[0]
 var menus = []
 
+//push all tags with class 'menu' to array. From menus array, his indexes will be usefull to manipulate with items down in this scrit
     for(let i=0; i < menu.length; i++) {
       menus.push(menu[i])
     }
@@ -642,14 +627,18 @@ var menus = []
 var index;
 var menuDiv = document.getElementsByClassName('menu-div')
 var menuInfoDiv = document.getElementById('menu-info')
-// var pass = 0
 
+//when user choose some of menu tabs, show additional information about it
   for(let i=0; i < menu.length; i++) {
     menu[i].onclick = function(event) {
         event.stopPropagation()
+        //nodesDiv and nodesDiv2 will hold data
         var nodesDiv = document.createElement('DIV')
+        var nodesDiv2 = document.createElement('DIV')
+
         index = menus.indexOf(this)
 
+        //data for tab happyHour, easier way is to use this function instead in menuLists array(object)
          function showHappyHour(){
            var happyHour = [
              {
@@ -668,15 +657,18 @@ var menuInfoDiv = document.getElementById('menu-info')
            var div;
            var head;
 
+           //push properties
             for(var i=0; i < happyHour.length; i++) {
               happyHourProps.push(Object.keys(happyHour[i]))
             }
+            //push property's array values
             for(let i=0; i < happyHourProps.length; i++) {
               hhPropsItems.push(happyHour[i][happyHourProps[i]])
             }
+            //use happyHourHeadings array values
             for(let i=0; i < happyHourHeadings.length; i++){
               div = document.createElement('DIV')
-              head = document.createElement('H3')
+              head = document.createElement('H4')
               head.innerText = happyHourHeadings[i]
               div.appendChild(head)
               nodesDiv.insertBefore(div, menuHead)
@@ -688,8 +680,7 @@ var menuInfoDiv = document.getElementById('menu-info')
             }
          }
           if (this.classList.contains("activeMenu")) {
-              // this.classList.remove("activeMenu");
-              // pass = 1
+
           }
           //mark with border only one menu name and remove border form other
           else if (document.querySelectorAll(".activeMenu").length == 1) {
@@ -698,61 +689,109 @@ var menuInfoDiv = document.getElementById('menu-info')
             var currentMenuProps = Object.keys(currentMenu)
             var keyOfkeys = (currentMenu[currentMenuProps])
             var currentMenuPropsProps;
-            // removeChild
+
+            //show only selected menu, remove others - unmark / mark tab
             for (let i = 0; i < x.length; i++) {
               x[i].classList.remove("activeMenu");
-              var menuInfoDivChildren =  menuInfoDiv.childNodes
-
-              //show only selected menu, remove others
-              menuInfoDiv.removeChild(menuInfoDiv.firstChild)
               this.classList.add("activeMenu");
+            }
+            //remove children nodes, so later can be displayed new
+            for(let i = 0; i <= menuInfoDiv.children.length; i++) {
+              // console.log(menuInfoDiv.children[i])
+              menuInfoDiv.removeChild(menuInfoDiv.children[0])
+            }
 
-                 for(let i=0; i < currentMenu[currentMenuProps].length; i++) {
-                   var menuHead = document.createElement('H1')
-                   var headDescription = document.createElement('P')
-                    currentMenuPropsProps = Object.keys(keyOfkeys[i])
-                    // console.log(keyOfkeys[i][currentMenuPropsProps])
-                    menuHead.innerText = keyOfkeys[i][currentMenuPropsProps].mainTitle
-                    headDescription.innerText = keyOfkeys[i][currentMenuPropsProps].mainContent
-
-                    var subTitles = keyOfkeys[i][currentMenuPropsProps].subtitle
-                    var content = keyOfkeys[i][currentMenuPropsProps].content
-                    // console.log(subTitles)
-
-                    nodesDiv.appendChild(menuHead)
-                    nodesDiv.appendChild(headDescription)
-                    menuInfoDiv.appendChild(nodesDiv)
-                    menuInfoDiv.appendChild(nodesDiv)
-
+            //index 5 is where is happyHour property in menuLists array(object)
                   if(index == 5){
                       showHappyHour()
                   }
 
-                  if(subTitles != undefined){
-                    for(let i=0; i < subTitles.length; i++){
+              //make tab active
+                  this.classList.add("activeMenu");
+                //
+                  var currentMenu = menuLists[index]
+                  var currentMenuProps = Object.keys(currentMenu)
+                  var keyOfkeys = (currentMenu[currentMenuProps])
+                  var currentMenuPropsProps;
+                  var menuHead;
+                  var headDescription;
+                  var subTitles;
+                  var content;
+                  var pass = 0;
 
-                      // console.log(keyOfkeys[i][currentMenuPropsProps])
-                      // console.log(subTitles[i])
+                  //create, append, show data (nodes) for seleted menu tab
+                    for(let i=0; i < currentMenu[currentMenuProps].length; i++) {
+                       menuHead = document.createElement('H1')
+                       headDescription = document.createElement('P')
+                       currentMenuPropsProps = Object.keys(keyOfkeys[i])
+                       menuHead.innerText = keyOfkeys[i][currentMenuPropsProps].mainTitle
+                       headDescription.innerText = keyOfkeys[i][currentMenuPropsProps].mainContent
+                       subTitles = keyOfkeys[i][currentMenuPropsProps].subtitle
+                       content = keyOfkeys[i][currentMenuPropsProps].content
 
-                      var menuItemDiv = document.createElement('DIV')
-                      var subTitlesNode = document.createElement('H3')
-                      var subTitlesValue = document.createTextNode(subTitles[i])
-                      var contentNode = document.createElement('P')
-                      var contentValue = document.createTextNode(content[i])
-                        subTitlesNode.appendChild(subTitlesValue)
-                        contentNode.appendChild(contentValue)
-                        menuItemDiv.appendChild(subTitlesNode)
-                        menuItemDiv.appendChild(contentNode)
-                        nodesDiv.appendChild(menuItemDiv)
-                      }
-                    }
+                       if(subTitles != undefined){
+                         var menuHtmlElements;
+                         menuHtmlElements = document.createElement('DIV')
 
-                    menuInfoDiv.appendChild(nodesDiv)
-                 }
+                         menuHtmlElements.appendChild(menuHead)
+                         menuHtmlElements.appendChild(headDescription)
+
+
+                       for(let i=0; i < subTitles.length; i++){
+                         var  subTitlesNode = document.createElement('H3')
+                         var  subTitlesValue = document.createTextNode(subTitles[i])
+                         var  contentNode = document.createElement('P')
+
+                      //prevent showing undefined value on the page, making it to be empty string
+                        if(content[i] == undefined) {
+                          content[i] = ''
+                        }
+
+                         var  contentValue = document.createTextNode(content[i])
+
+                           subTitlesNode.appendChild(subTitlesValue)
+                           contentNode.appendChild(contentValue)
+                           // menuItemDiv.appendChild(subTitlesNode)
+                           // menuItemDiv.appendChild(contentNode)
+                           menuHtmlElements.appendChild(subTitlesNode)
+                           menuHtmlElements.appendChild(contentNode)
+                       }
+
+                      //to make HTML structure easier for styling, push items in 2 div
+                      //every first property goes in one div, every second in second div
+                      //using variable "pass"
+                       if(pass == 0) {
+                         nodesDiv.appendChild(menuHtmlElements)
+                         menuInfoDiv.appendChild(nodesDiv)
+                         nodesDiv.classList.add('content-div')
+
+                         if(index == 5){
+                           pass = 0
+                         }
+                         else {
+                             pass = 1
+                         }
+                       }
+                         else if(pass == 1) {
+                           nodesDiv2.appendChild(menuHtmlElements)
+                           menuInfoDiv.appendChild(nodesDiv2)
+                           nodesDiv2.classList.add('content-div')
+
+                           if(index == 5){
+                             pass = 1
+                           }
+                           else {
+                               pass = 0
+                           }
+                         }
+                     }
           }
         }
-          //mark menu name onclick
-          else {
+
+    //else for first choose, for others clicks on menu tabs, all work goes on code above, in if statment
+      //mark menu name onclick
+        else {
+          //index 5 is where is happyHour property in menuLists array(object)
             if(index == 5){
               showHappyHour()
             }
@@ -761,51 +800,90 @@ var menuInfoDiv = document.getElementById('menu-info')
             for (let i = 0; i < x.length; i++) {
               x[i].classList.remove("activeMenu");
             }
-            var menuInfoDivChildren =  menuInfoDiv.childNodes
-            //show only selected menu, remove others
-              // menuInfoDiv.removeChild(menuInfoDiv.firstChild)
 
+            //make tab active
               this.classList.add("activeMenu");
+              //
               var currentMenu = menuLists[index]
               var currentMenuProps = Object.keys(currentMenu)
               var keyOfkeys = (currentMenu[currentMenuProps])
               var currentMenuPropsProps;
-              // removeChild
+              var menuHead;
+              var headDescription;
+              var subTitles;
+              var content;
+              var pass = 0;
 
+                  //create, append, show data (nodes) for seleted menu tab
                    for(let i=0; i < currentMenu[currentMenuProps].length; i++) {
-                     var menuHead = document.createElement('H1')
-                     var headDescription = document.createElement('P')
+                      menuHead = document.createElement('H1')
+                      headDescription = document.createElement('P')
                       currentMenuPropsProps = Object.keys(keyOfkeys[i])
-                      // console.log(keyOfkeys[i][currentMenuPropsProps])
                       menuHead.innerText = keyOfkeys[i][currentMenuPropsProps].mainTitle
                       headDescription.innerText = keyOfkeys[i][currentMenuPropsProps].mainContent
+                      subTitles = keyOfkeys[i][currentMenuPropsProps].subtitle
+                      content = keyOfkeys[i][currentMenuPropsProps].content
 
-                      var subTitles = keyOfkeys[i][currentMenuPropsProps].subtitle
-                      var content = keyOfkeys[i][currentMenuPropsProps].content
+                      var menuHtmlElements = document.createElement('DIV')
 
-                      nodesDiv.appendChild(menuHead)
-                      nodesDiv.appendChild(headDescription)
+                      menuHtmlElements.appendChild(menuHead)
+                      menuHtmlElements.appendChild(headDescription)
                       menuInfoDiv.appendChild(nodesDiv)
-                      // menuInfoDiv.appendChild(nodesDiv)
+
+
                       for(let i=0; i < subTitles.length; i++){
-                        var menuItemDiv = document.createElement('DIV')
-                        var subTitlesNode = document.createElement('H3')
-                        var subTitlesValue = document.createTextNode(subTitles[i])
-                        var contentNode = document.createElement('P')
-                        var contentValue = document.createTextNode(content[i])
+                        // var menuItemDiv = document.createElement('DIV')
+                        var  subTitlesNode = document.createElement('H3')
+                        var  subTitlesValue = document.createTextNode(subTitles[i])
+                        var  contentNode = document.createElement('P')
+
+                    //prevent showing undefined value on the page, making it to be empty string
+                        if(content[i] == undefined) {
+                          content[i] = ''
+                        }
+
+                        var  contentValue = document.createTextNode(content[i])
+
                           subTitlesNode.appendChild(subTitlesValue)
                           contentNode.appendChild(contentValue)
-                          menuItemDiv.appendChild(subTitlesNode)
-                          menuItemDiv.appendChild(contentNode)
-                          nodesDiv.appendChild(menuItemDiv)
+                          // menuItemDiv.appendChild(subTitlesNode)
+                          // menuItemDiv.appendChild(contentNode)
+                          menuHtmlElements.appendChild(subTitlesNode)
+                          menuHtmlElements.appendChild(contentNode)
+                      }
+
+                      //to make HTML structure easier for styling, push items in 2 div
+                      //every first property goes in one div, every second in second div
+                      //using variable "pass"
+                      if(pass == 0) {
+                        nodesDiv.appendChild(menuHtmlElements)
+                        menuInfoDiv.appendChild(nodesDiv)
+                        nodesDiv.classList.add('content-div')
+
+                        if(index == 5){
+                          pass = 0
+                        }
+                        else {
+                            pass = 1
+                        }
 
                       }
-                      menuInfoDiv.appendChild(nodesDiv)
+                        else if(pass == 1) {
+                          nodesDiv2.appendChild(menuHtmlElements)
+                          menuInfoDiv.appendChild(nodesDiv2)
+                          nodesDiv2.classList.add('content-div')
 
-                   }
+                          if(index == 5){
+                            pass = 1
+                          }
+                          else {
+                              pass = 0
+                          }
+                        }
 
-          }
-        }
-  }
+                    }
+                  }
+                }
+              }
 
 //script for menu list - End
