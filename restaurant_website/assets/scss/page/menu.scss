@@ -240,20 +240,23 @@ body {
 }
 @media only screen and (max-width:530px){
   .menus .row {
+    padding: 5px 10px;
     justify-content: center;
     .scottsdale, .la-dinner-menu, .vegan {
       margin: 15px 0;
-      width: 100%;
+      width: 80%;
     }
     .row-4-4 {
-      width: 100%;
+      padding: 5px 10px;
+      width: 80%;
       margin:0 auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
        div {
          width: 96%;
-         padding: 0 2%;
+         padding-left: 2%;
+         padding-right: 2%;
          margin: 15px;
        }
     }
@@ -266,37 +269,80 @@ body {
 
 //menu-info - Begin
 .menu-info {
+  margin-top: 50px;
+  margin-bottom: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   * {
     text-align: center;
   }
+    h1 {
+      color: $gold;
+      margin: 70px 0 20px;
+      font-size: 2em;
+      position: relative;
+    }
+  }
   .content-div {
-    width: 100%;
-      h1 {
-        width: 60%;
-        margin: 50px 0 8px;
-      }
-      h1:nth-of-type(even), div:nth-of-type(even){
-        float: right;
-      }
-      div {
-        width: 60%;
+    opacity: 0;
+    animation: 4s show 1;
+    animation-fill-mode: forwards;
+    transition: 3s opacity;
+    width: 50%;
+    div {
+      width: 100%;
+      h1:before {
+        width: 26%;
         display: block;
-        h3 {
-          width: 100%;
-          p {
-            width: 100%;
-          }
-        }
+        height: 2.1px;
+        background: $pink;
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform:translateX(-50%);
+        content: '';
       }
-       &::after {
-         display: block;
-         clear: both;
-         content: '';
-       }
-  }
+   }
+          h3 {
+            color: $platinum;
+            margin-top: 20px;
+          }
+          h4 {
+            margin: 30px 0 0;
+          }
+          p {
+            font-size: .9em;
+            width: 90%;
+            margin:0 auto;
+          }
+          div:first-of-type{
+            h1:before {
+              display: none;
+            }
+      }
+}// content-div/>
+@keyframes show {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
 
-  h4 {
+@media only screen and (max-width:769px){
+  .content-div {
+    width: 95%;
+    margin:0 auto;
   }
-
+}
+@media only screen and (max-width:426px){
+  .menu-info {
+      h1 {
+        font-size: 1.7em;
+      }
+    }
+  .content-div {
+          p {
+            font-size: .8em;
+          }
+      }
 }
 //menu-info - End
