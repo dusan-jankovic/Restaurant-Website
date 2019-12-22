@@ -57,9 +57,38 @@ var getDay = days[d.getDay()]
       }
   ]
 
+ //on arrow click (left, rigth) show months (with limit +- 2 months)
+ var leftArrow = document.getElementsByClassName('fa-angle-left')
+ var rightArrow = document.getElementsByClassName('fa-angle-right')
+ var m = 0;
+
+   leftArrow[0].onclick = () => {
+     removeDays()
+
+      m--
+     currentMonth = months[d.getMonth()+(m)]
+     daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
+
+     addDaysToCalendar()
+     montly()
+   }
+   rightArrow[0].onclick = () => {
+     removeDays()
+      m++
+     currentMonth = months[d.getMonth()+(m)]
+     daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
+
+
+     addDaysToCalendar()
+     montly()
+   }
+
     var calendar = document.getElementsByClassName('calendar')
 
-      for(let i = 0; i < daysInMonth; i++) {
+    function addDaysToCalendar(){
+      //35 because calendar will be 7x5 on all devices,
+      // and that way is good to match days from months to correct day in weeek
+      for(let i = 00; i < 35; i++) {
         //add html elements to calendar (div);
         //number of elements (coverDiv, dayEle) will depend on number of days in current month
         var coverDiv = document.createElement('DIV')
@@ -67,6 +96,9 @@ var getDay = days[d.getDay()]
         var p1 = document.createElement('P')
         var p2 = document.createElement('P')
         var span = document.createElement('SPAN')
+
+        //set
+
 
         p2.classList.add('p2')
         coverDiv.classList.add('coverDiv')
@@ -76,12 +108,33 @@ var getDay = days[d.getDay()]
         dayEle.appendChild(p2)
         coverDiv.appendChild(dayEle)
         calendar[0].appendChild(coverDiv)
+
+        var forEachDay = new Date(2019, d.getMonth() , 1 )
+        // console.log(forEachDay)
+        console.log(forEachDay.days[getDay()])
+        // console.log( days[forEachDay.getDay()] )
       }
+
+    }
+
+      addDaysToCalendar()
 
         //borderHack - for solving css problem
         var borderHack = document.createElement('DIV')
         borderHack.classList.add('border-hack')
         calendar[0].appendChild(borderHack)
+
+  //show only days in this month removing days from last presented month
+  var calendarNodes = document.getElementsByClassName('coverDiv')
+
+    function removeDays(){
+      var nodesLength = calendarNodes.length
+
+        for(let i = 0; i < daysInMonth; i++){
+          calendarNodes[0].style.display = 'none';
+          calendar[0].removeChild(calendarNodes[0])
+        }
+    }
 
   //montly function shows events in calendar view
     function montly(){
@@ -224,7 +277,7 @@ var getDay = days[d.getDay()]
 
       montly()
 
-  //on "back" button click return user to the calednar view
+  //on "back" button click return user to the calendar view
   var backBtn = document.getElementById('back-btn')
 
     backBtn.onclick = () => {
