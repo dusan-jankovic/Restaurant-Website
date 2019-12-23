@@ -3,6 +3,7 @@ var d = new Date();
 var months =
   ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+var getMonth = d.getMonth()
 var currentMonth = months[d.getMonth()]
 var daysInMonth = new Date(d.getYear(), d.getMonth()+1, 0).getDate()
 //using days array to get name of the day not his number in the week
@@ -88,41 +89,58 @@ var getDay = days[d.getDay()]
     function addDaysToCalendar(){
       //35 because calendar will be 7x5 on all devices,
       // and that way is good to match days from months to correct day in weeek
-      for(let i = 00; i < 35; i++) {
+      for(let i = 0; i < 35; i++) {
         //add html elements to calendar (div);
         //number of elements (coverDiv, dayEle) will depend on number of days in current month
         var coverDiv = document.createElement('DIV')
-        var dayEle = document.createElement('DIV')
-        var p1 = document.createElement('P')
-        var p2 = document.createElement('P')
-        var span = document.createElement('SPAN')
 
-        //set
-
-
-        p2.classList.add('p2')
-        coverDiv.classList.add('coverDiv')
-        dayEle.classList.add('dayDiv', i + 1)
-        dayEle.appendChild(span)
-        dayEle.appendChild(p1)
-        dayEle.appendChild(p2)
-        coverDiv.appendChild(dayEle)
         calendar[0].appendChild(coverDiv)
-
-        var forEachDay = new Date(2019, d.getMonth() , 1 )
-        // console.log(forEachDay)
-        console.log(forEachDay.days[getDay()])
-        // console.log( days[forEachDay.getDay()] )
+        coverDiv.classList.add('coverDiv')
       }
 
+    //get day of prvog dana tog meseca i njegov dan u nedelji, taj index nedljni koristi kao
+    //pocetnu poziciju za div
+  function daysToCalendar(){
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    sd = new Date(d.getFullYear(), 9, 01)
+    var i = sd.getDay()
+    //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
+    var daysInMonth = new Date(d.getFullYear(), 10 , 0).getDate() + i
+
+    console.log(days)
+    console.log('od sd: ' + sd.getDay())
+    console.log('od dayInMonth: ' + daysInMonth)
+
+    for(i; i < daysInMonth; i++) {
+      var dayEle = document.createElement('DIV')
+      var p1 = document.createElement('P')
+      var p2 = document.createElement('P')
+      var span = document.createElement('SPAN')
+      var coverDiv = document.getElementsByClassName('coverDiv')
+
+      p2.classList.add('p2')
+      dayEle.classList.add('dayDiv', i + 1)
+      dayEle.appendChild(span)
+      dayEle.appendChild(p1)
+      dayEle.appendChild(p2)
+
+      coverDiv[i].appendChild(dayEle)
+
+      //get first day name of current
     }
+   }
+   daysToCalendar()
+  }
+
+
 
       addDaysToCalendar()
 
         //borderHack - for solving css problem
-        var borderHack = document.createElement('DIV')
-        borderHack.classList.add('border-hack')
-        calendar[0].appendChild(borderHack)
+        // var borderHack = document.createElement('DIV')
+        // borderHack.classList.add('border-hack')
+        // calendar[0].appendChild(borderHack)
 
   //show only days in this month removing days from last presented month
   var calendarNodes = document.getElementsByClassName('coverDiv')
