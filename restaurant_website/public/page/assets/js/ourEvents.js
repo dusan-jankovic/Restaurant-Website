@@ -11,7 +11,7 @@ var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 var getDay = days[d.getDay()]
 
 //events data
-  var events = [
+var events = [
       {
         time: '11am-4pm',
         date:'',
@@ -59,123 +59,122 @@ var getDay = days[d.getDay()]
   ]
 
  //on arrow click (left, rigth) show months (with limit +- 2 months)
- var leftArrow = document.getElementsByClassName('fa-angle-left')
- var rightArrow = document.getElementsByClassName('fa-angle-right')
- var m = 0;
+var leftArrow = document.getElementsByClassName('fa-angle-left')
+var rightArrow = document.getElementsByClassName('fa-angle-right')
+var m = 0;
 
    leftArrow[0].onclick = () => {
      removeDays()
-
       m--
-     currentMonth = months[d.getMonth()+(m)]
-     daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
+     // currentMonth = months[d.getMonth()+(m)]
+     // daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
 
-     addDaysToCalendar()
+     makeCalendarGrid()
      montly()
    }
+
    rightArrow[0].onclick = () => {
      removeDays()
       m++
-     currentMonth = months[d.getMonth()+(m)]
-     daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
+     // currentMonth = months[d.getMonth()+(m)]
+     // daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
 
-
-     addDaysToCalendar()
+     makeCalendarGrid()
      montly()
    }
 
-    var calendar = document.getElementsByClassName('calendar')
+var calendar = document.getElementsByClassName('calendar')
 
-    function addDaysToCalendar(){
+     function makeCalendarGrid(){
+      if(m >= -2 && m <= 2){
       //35 because calendar will be 7x5 on all devices,
       // and that way is good to match days from months to correct day in weeek
-      for(let i = 0; i < 35; i++) {
-        //add html elements to calendar (div);
-        //number of elements (coverDiv, dayEle) will depend on number of days in current month
-        var coverDiv = document.createElement('DIV')
+        for(let i = 0; i < 35; i++) {
+          //add html elements to calendar (div);
+          //number of elements (coverDiv, dayEle) will depend on number of days in current month
+          var coverDiv = document.createElement('DIV')
 
-        calendar[0].appendChild(coverDiv)
-        coverDiv.classList.add('coverDiv')
+          calendar[0].appendChild(coverDiv)
+          coverDiv.classList.add('coverDiv')
+        }
+
+        function daysToCalendar(){
+          //get day of prvog dana tog meseca i njegov dan u nedelji, taj index nedljni koristi kao
+          //pocetnu poziciju za div
+          currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
+
+          var i = currentMonth.getDay()
+
+          //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
+          var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
+
+            for(i; i < daysInMonth; i++) {
+              var dayEle = document.createElement('DIV')
+              var p1 = document.createElement('P')
+              var p2 = document.createElement('P')
+              var span = document.createElement('SPAN')
+              var coverDiv = document.getElementsByClassName('coverDiv')
+
+              p2.classList.add('p2')
+              dayEle.classList.add('dayDiv', i + 1)
+              dayEle.appendChild(span)
+              dayEle.appendChild(p1)
+              dayEle.appendChild(p2)
+
+              coverDiv[i].appendChild(dayEle)
+            }
+         }daysToCalendar()
+     }
+      else if (m < -2){
+        m = -2
       }
-
-    //get day of prvog dana tog meseca i njegov dan u nedelji, taj index nedljni koristi kao
-    //pocetnu poziciju za div
-  function daysToCalendar(){
-    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-    sd = new Date(d.getFullYear(), 9, 01)
-    var i = sd.getDay()
-    //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
-    var daysInMonth = new Date(d.getFullYear(), 10 , 0).getDate() + i
-
-    console.log(days)
-    console.log('od sd: ' + sd.getDay())
-    console.log('od dayInMonth: ' + daysInMonth)
-
-    for(i; i < daysInMonth; i++) {
-      var dayEle = document.createElement('DIV')
-      var p1 = document.createElement('P')
-      var p2 = document.createElement('P')
-      var span = document.createElement('SPAN')
-      var coverDiv = document.getElementsByClassName('coverDiv')
-
-      p2.classList.add('p2')
-      dayEle.classList.add('dayDiv', i + 1)
-      dayEle.appendChild(span)
-      dayEle.appendChild(p1)
-      dayEle.appendChild(p2)
-
-      coverDiv[i].appendChild(dayEle)
-
-      //get first day name of current
-    }
-   }
-   daysToCalendar()
-  }
+      else if(m > 2){
+        m = 2
+      }
+   }makeCalendarGrid()
 
 
-
-      addDaysToCalendar()
 
         //borderHack - for solving css problem
         // var borderHack = document.createElement('DIV')
         // borderHack.classList.add('border-hack')
         // calendar[0].appendChild(borderHack)
 
-  //show only days in this month removing days from last presented month
-  var calendarNodes = document.getElementsByClassName('coverDiv')
+//show only days in this month removing days from last presented month
+var calendarNodes = document.getElementsByClassName('coverDiv')
 
     function removeDays(){
-      var nodesLength = calendarNodes.length
-
-        for(let i = 0; i < daysInMonth; i++){
+        for(let i = 0; i < 35; i++){
           calendarNodes[0].style.display = 'none';
           calendar[0].removeChild(calendarNodes[0])
         }
     }
 
+
+
   //montly function shows events in calendar view
     function montly(){
       //show heading
+      console.log(currentMonth)
       var h1 = document.getElementsByClassName('day-month')
-      h1[0].innerHTML = currentMonth + ' ' + d.getFullYear()
+      h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
 
       var eventsNames = [];
       var eventsTimes = [];
 
-      var j = 0;
-      var g = 0;
+      var j = currentMonth.getDay();
+      var g = currentMonth.getDay();
 
-      //from events array(object) push specified props to new arrays
-          for(let i = 0; i < events.length; i++) {
-            eventsNames.push(events[i].name)
-            eventsTimes.push(events[i].time)
-          }
+  //from events array(object) push specified props to new arrays
+      for(let i = 0; i < events.length; i++) {
+        eventsNames.push(events[i].name)
+        eventsTimes.push(events[i].time)
+    }
 
-        //add values to days which has event, for other days add nothing
+
+  //add values to days which has event, for other days add nothing
+  var p2 = document.getElementsByClassName('p2')
           for(var k = 0; k < daysInMonth; k++) {
-            var p2 = document.getElementsByClassName('p2')
-
             //on event click show user new window (page) with more details
                 p2[k].onclick = () => {
                   var calendar = document.getElementsByClassName('calendar')
@@ -197,68 +196,67 @@ var getDay = days[d.getDay()]
                   daysInWeek[0].style.opacity = '0'
                   options[0].style.opacity = '0'
 
-
                   calendar[0].classList.add('hs')
 
                   gif[0].style.animationDelay = '.4s'
                   gif[0].style.animationIterationCount = '1'
                   gif[0].style.animationPlayState = 'running'
 
-                function exe1(){
-                  options[0].classList.add('hs')
-                  dayMonth[0].classList.add('hs')
-                  daysInWeek[0].classList.add('hs')
-                }
-                setTimeout(exe1, 600)
+                    function exe1(){
+                      options[0].classList.add('hs')
+                      dayMonth[0].classList.add('hs')
+                      daysInWeek[0].classList.add('hs')
+                    }
+                    setTimeout(exe1, 600)
 
-                  detailsDiv[0].style.display = 'block'
-                  detailsDiv[0].style.animationPlayState = 'running'
+                    detailsDiv[0].style.display = 'block'
+                    detailsDiv[0].style.animationPlayState = 'running'
 
-                  //get target class name(number) and use that as index to show data
-                   function thisIndex(){
-                    var index = this.event.target.classList.item(1)
-                    var thisImage = document.createElement('IMG')
-                    var thisHeading = document.createElement('H2')
-                    var thisPara = document.createElement('P')
-                    var targetParrent = this.event.target.parentElement.classList.item(1)
-                    var position;
+                    //"Detail window"
+                    //get target class name(number) and use that as index to show data
+                     function thisIndex(){
+                      var index = this.event.target.classList.item(1)
+                      var thisImage = document.createElement('IMG')
+                      var thisHeading = document.createElement('H2')
+                      var thisPara = document.createElement('P')
+                      var targetParrent = this.event.target.parentElement.classList.item(1)
+                      var position;
 
-                      //add suffix to the day
-                        if(targetParrent == 1){
-                          position = 'st'
-                        }
-                        else if(targetParrent == 2) {
-                          position = 'nd'
-                        }
-                        else if(targetParrent == 3) {
-                          position = 'rd'
-                        }
-                        else {
-                          position = 'th'
-                        }
+                        //add suffix to the day
+                          if(targetParrent == 1){
+                            position = 'st'
+                          }
+                          else if(targetParrent == 2) {
+                            position = 'nd'
+                          }
+                          else if(targetParrent == 3) {
+                            position = 'rd'
+                          }
+                          else {
+                            position = 'th'
+                          }
 
-                    thisImage.setAttribute('src', events[index].image)
+                      thisImage.setAttribute('src', events[index].image)
 
-                    //set these classes for easier removing later, when "back" button is clicked
-                    thisImage.classList.add('newNodes')
-                    thisHeading.classList.add('newNodes')
-                    thisPara.classList.add('newNodes')
+                      //set these classes for easier removing later, when "back" button is clicked
+                      thisImage.classList.add('newNodes')
+                      thisHeading.classList.add('newNodes')
+                      thisPara.classList.add('newNodes')
 
-                    detailsDiv[0].appendChild(thisHeading)
-                    detailsDiv[0].appendChild(thisPara)
-                    detailsDiv[0].appendChild(thisImage)
+                      detailsDiv[0].appendChild(thisHeading)
+                      detailsDiv[0].appendChild(thisPara)
+                      detailsDiv[0].appendChild(thisImage)
 
-                    detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
-                    detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${currentMonth.slice(0, 3)} ${targetParrent + position} ${events[index].time}  `
-                  }
+                      detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
+                      detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetParrent + position} ${events[index].time}  `
+                    }
                   thisIndex()
-
                 }
 
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('span')[0].innerHTML = parseInt(k+1)
-              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsTimes[j]
-              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = eventsNames[j]
-              //add class for each element (0 - 6) and use that class as index to get data for details page
+              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsTimes[j] + j
+              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = eventsNames[j] + j
+               //add class for each element (0 - 6) and use that class as index to get data for details page
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].classList.add(j)
 
               j++
@@ -270,10 +268,11 @@ var getDay = days[d.getDay()]
                    else if(eventsTimes[j] == undefined && eventsNames[j] == undefined){
                      calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = '';
                       calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = '';
+
                    }
-                     else if (days[g-1] == "Wednesday" || days[g-1] == "Thursday" || days[g-1] == "Friday" ) {
+                     else if (g == "Wednesday" || days[g-1] == "Thursday" || days[g-1] == "Friday" ) {
                        calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].style.display = 'none'
-                        calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].style.display = 'none'
+                       calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].style.display = 'none'
                   }
         }
 
@@ -295,8 +294,8 @@ var getDay = days[d.getDay()]
 
       montly()
 
-  //on "back" button click return user to the calendar view
-  var backBtn = document.getElementById('back-btn')
+//on "back" button click return user to the calendar view
+var backBtn = document.getElementById('back-btn')
 
     backBtn.onclick = () => {
       var calendar = document.getElementsByClassName('calendar')
@@ -331,7 +330,8 @@ var getDay = days[d.getDay()]
 
     setTimeout(exe1, 600)
 
-      var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
+
+var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
 
          for(let i = 0; i < newNodes.length; i++){
            detailsDiv[0].removeChild(newNodes[i])
