@@ -58,35 +58,39 @@ var events = [
       }
   ]
 
+
  //on arrow click (left, rigth) show months (with limit +- 2 months)
 var leftArrow = document.getElementsByClassName('fa-angle-left')
 var rightArrow = document.getElementsByClassName('fa-angle-right')
 var m = 0;
 
    leftArrow[0].onclick = () => {
-     removeDays()
       m--
-     // currentMonth = months[d.getMonth()+(m)]
-     // daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
-
-     makeCalendarGrid()
-     montly()
+        if(m >= -2){
+          removeDays()
+          makeCalendarGrid()
+          montly()
+        }
+        else if (m < -2){
+          m = -2
+        }
    }
 
    rightArrow[0].onclick = () => {
-     removeDays()
       m++
-     // currentMonth = months[d.getMonth()+(m)]
-     // daysInMonth = new Date(d.getYear(), d.getMonth()+1 +(m), 0).getDate()
-
-     makeCalendarGrid()
-     montly()
+        if(m <= 2){
+          removeDays()
+          makeCalendarGrid()
+          montly()
+        }
+        else if(m > 2){
+          m = 2
+        }
    }
 
 var calendar = document.getElementsByClassName('calendar')
 
      function makeCalendarGrid(){
-      if(m >= -2 && m <= 2){
       //35 because calendar will be 7x5 on all devices,
       // and that way is good to match days from months to correct day in weeek
         for(let i = 0; i < 35; i++) {
@@ -124,13 +128,6 @@ var calendar = document.getElementsByClassName('calendar')
               coverDiv[i].appendChild(dayEle)
             }
          }daysToCalendar()
-     }
-      else if (m < -2){
-        m = -2
-      }
-      else if(m > 2){
-        m = 2
-      }
    }makeCalendarGrid()
 
 
@@ -141,12 +138,16 @@ var calendar = document.getElementsByClassName('calendar')
         // calendar[0].appendChild(borderHack)
 
 //show only days in this month removing days from last presented month
-var calendarNodes = document.getElementsByClassName('coverDiv')
 
     function removeDays(){
-        for(let i = 0; i < 35; i++){
+      var calendarNodes = document.getElementsByClassName('coverDiv')
+      let i =  0
+        for(i; i < 35; i++){
           calendarNodes[0].style.display = 'none';
           calendar[0].removeChild(calendarNodes[0])
+            if(i == undefined){
+              i = i - 1
+            }
         }
     }
 
@@ -155,7 +156,6 @@ var calendarNodes = document.getElementsByClassName('coverDiv')
   //montly function shows events in calendar view
     function montly(){
       //show heading
-      console.log(currentMonth)
       var h1 = document.getElementsByClassName('day-month')
       h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
 
@@ -174,7 +174,12 @@ var calendarNodes = document.getElementsByClassName('coverDiv')
 
   //add values to days which has event, for other days add nothing
   var p2 = document.getElementsByClassName('p2')
+console.log(m)
           for(var k = 0; k < daysInMonth; k++) {
+            if(p2[k] == undefined) {
+              // console.log('')
+            }
+            else {
             //on event click show user new window (page) with more details
                 p2[k].onclick = () => {
                   var calendar = document.getElementsByClassName('calendar')
@@ -206,8 +211,7 @@ var calendarNodes = document.getElementsByClassName('coverDiv')
                       options[0].classList.add('hs')
                       dayMonth[0].classList.add('hs')
                       daysInWeek[0].classList.add('hs')
-                    }
-                    setTimeout(exe1, 600)
+                    }setTimeout(exe1, 600)
 
                     detailsDiv[0].style.display = 'block'
                     detailsDiv[0].style.animationPlayState = 'running'
@@ -249,13 +253,12 @@ var calendarNodes = document.getElementsByClassName('coverDiv')
 
                       detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
                       detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetParrent + position} ${events[index].time}  `
-                    }
-                  thisIndex()
+                    }thisIndex()
                 }
 
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('span')[0].innerHTML = parseInt(k+1)
-              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsTimes[j] + j
-              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = eventsNames[j] + j
+              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsTimes[j]
+              calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = eventsNames[j]
                //add class for each element (0 - 6) and use that class as index to get data for details page
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].classList.add(j)
 
@@ -270,10 +273,11 @@ var calendarNodes = document.getElementsByClassName('coverDiv')
                       calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = '';
 
                    }
-                     else if (g == "Wednesday" || days[g-1] == "Thursday" || days[g-1] == "Friday" ) {
+                     else if (days[g-1] == "Wednesday" || days[g-1] == "Thursday" || days[g-1] == "Friday" ) {
                        calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].style.display = 'none'
                        calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].style.display = 'none'
                   }
+                }
         }
 
         //get this date and mark that box (div) in calendar
@@ -288,11 +292,11 @@ var calendarNodes = document.getElementsByClassName('coverDiv')
                 divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
               }
             }
-          }
-          markCurrentDate()
-      }
+          }markCurrentDate()
+          console.log('Kraj: + =============================')
 
-      montly()
+      }montly()
+
 
 //on "back" button click return user to the calendar view
 var backBtn = document.getElementById('back-btn')
