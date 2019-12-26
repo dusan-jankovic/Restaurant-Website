@@ -124,62 +124,12 @@ body {
       }
       div:first-of-type{
         float: left;
-        i {
-          position: absolute;
-          z-index:2;
-          right: 0;
-          font-size: 20px;
-          width:30px;
-          background: black;
-          display: block;
-          top: 0;
-          height:100%;
-          border: 1px solid #fff;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          transition: .4s color;
-        }
-        i:hover {
-          color: $gold;
-        }
       }
 
       div:nth-of-type(2) {
         margin:15px 2px;
         position: relative;
         float: left;
-          i {
-            font-size: 20px;
-            width:30px;
-            background: black;
-            display: block;
-            top: 0;
-            height:100%;
-            border: 1px solid #fff;
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            float: left;
-            margin: 0 2px;
-            cursor: pointer;
-            transition: .4s color;
-          }
-          i:hover {
-            color: $gold;
-          }
-          i:nth-of-type(2) {
-            height:100%;
-            border-radius: 0;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-          }
           input[type="date"] {
             height: 100%;
             width: 150px;
@@ -235,6 +185,38 @@ body {
      clear: both;
      content: '';
    }
+   .showMonth {
+     position: relative;
+     display: flex;
+     align-items: center;
+     margin-bottom: 15px;
+     i {
+       margin: 0 10px;
+       z-index:2;
+       font-size: 20px;
+       width:30px;
+       background: black;
+       display: block;
+       height:100%;
+       border: 1px solid #fff;
+       border-top-right-radius: 4px;
+       border-bottom-right-radius: 4px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       cursor: pointer;
+       transition: .4s color;
+     }
+     i:nth-of-type(1) {
+       height:100%;
+       border-radius: 0;
+       border-top-left-radius: 4px;
+       border-bottom-left-radius: 4px;
+     }
+     i:hover {
+       color: $gold;
+     }
+   }
    .day-month {
      color:#ccc;
    }
@@ -253,13 +235,15 @@ body {
      width: 100%;
      display: flex;
      flex-wrap: wrap;
-     border-right:.5px solid #1d1717;
-     border-bottom:.5px solid #1d1717;
+     // border-right:.5px solid #1d1717;
+     // border-top:.5px solid #1d1717;
+     // padding-top: .5px;
      transition: .4s opacity;
      position: relative;
       .coverDiv {
-        width: 14.28%;
+        width: 14.18%;
         height: 150px;
+        margin: 0.05%;
         // background: #1d1717;
         display: flex;
         justify-content: center;
@@ -270,8 +254,8 @@ body {
             height: 100%;
             color: rgb(253, 102, 102);
             display: block;
-            border-left:.5px solid #1d1717;
-            border-top:.5px solid #1d1717;
+            border:.5px solid #1d1717;
+            // border-bottom:.5px solid #1d1717;
             span {
               display: block;
               text-align: right;
@@ -303,7 +287,14 @@ body {
               }
           }
       }//coverDiv
+      .lastParEle {
+        width: 14.33%;
+      }
+      .lastElement  {
+        border-right: .5px solid #1d1717;
+      }
    }//calendar - End
+
     .border-hack {
       height: 150px;
       min-width: auto;
@@ -319,10 +310,10 @@ body {
       opacity: 0;
       display: none;
       animation-play-state: paused;
-      animation: gif 4s 1;
+      animation: gif 4s 2;  ///animacija je bila na 4s
       z-index: 99;
-      width: 3%;
-      height: 5%;
+      width: 60px;
+      height: 60px;
       transition: .6s opacity;
       transform:scale(1);
       animation-fill-mode: forwards;
@@ -338,28 +329,106 @@ body {
       55% {opacity: .3;transform:scale(1)}
       75% {opacity: 1;transform:scale(1.3)}
       95% {opacity: .7;transform:scale(1)}
-      100% {opacity: 0;transform:scale(1); display: none;}
+      100% {opacity: 0;transform:scale(1)}
     }
     .details-div {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform:translate(-50%,-50%);
-      width: 90%;
-      height: 300px;
-      border:1px solid red;
+      margin-top: 20px;
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
       display: none;
       opacity: 0;
       transition: .5s opacity;
       animation-play-state: paused;
       animation: details .3s 1;
       animation-play-state: paused;
-      animation-delay:5s;
+      animation-delay:5s; //animacija delay bila je na 5s
       animation-fill-mode: forwards;
-    }
+         ul {
+           margin-bottom: 15px;
+           display: flex;
+           align-items: center;
+           width: 35%;
+           li:nth-of-type(2) {
+             margin-left: 30px;
+           }
+            li {
+              font-size: 0.95em;
+              margin: 0 9px;
+              cursor: pointer;
+                i {
+                  font-size: 1.2em;
+                }
+            }
+         }
+        h2 {
+          font-size:2.2em;
+          font-weight: lighter;
+        }
+        p {
+          padding-left: 5px;
+        }
+        img {
+          display: block;
+          margin-top: 15px;
+          width: 250px;
+          height: 370px;
+          margin-bottom: 15px;
+        }
+    }// details-div/>
     @keyframes details {
       0% {opacity: 0;}
       100% {opacity: 1;}
     }
+    .hs {
+      opacity: 0;
+      display: none;
+    }
+}
+@media only screen and (max-width: 769px){
+  .events {
+    .search-div {
+    display: none;
+  }
+  .events-view {
+    width: 100%;
+    float: none;
+    margin: 15px 5px;
+  }
+   .events-view div button {
+    padding: 6px 9px;
+    font-size: .8em;
+  }
+  .showMonth {
+    font-size: 0.85em;
+     i {
+       font-size: 18px;
+       width: 25px;
+     }
+  }
+ }
+}
+@media only screen and (max-width:750px){
+  .events {
+    overflow-x: scroll;
+  .daysInWeek {
+    width: 800px;
+   li {
+    width: 170px;
+    padding-left: 3px;
+  }
+}
+  .calendar {
+    width: 800px;
+    padding:1px 0 0;
+  }
+  .calendar .coverDiv {
+    width: 111px;
+    margin:1.5px;
+  }
+   .calendar  .lastParEle {
+      width: 111.9px;
+    }
+ }
 }
 //events - End
