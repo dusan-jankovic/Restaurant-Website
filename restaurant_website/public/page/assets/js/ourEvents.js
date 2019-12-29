@@ -57,13 +57,35 @@ var events = [
         image:'https://d3flpus5evl89n.cloudfront.net/5ae7a89edf82fe0acf63df87/5d31f9dedf82fe23aacf7185/square_272x272.jpg'
       }
   ]
+var monthBtn = document.getElementById('month')
+var agenBtn = document.getElementById('agen')
+var pinBtn = document.getElementById('pinb')
 
 
- //on arrow click (left, rigth) show months (with limit +- 2 months)
 var leftArrow = document.getElementsByClassName('fa-angle-left')
 var rightArrow = document.getElementsByClassName('fa-angle-right')
 var m = 0;
+//pass variable to make only one click available to see different events views (agenda, pinboard, monthly)
+var pass = 0;
+var pass2 = 0;
+var pass3 = 0;
 
+  monthBtn.onclick = function() {
+  if(pass == 0){
+    if(pass3 == 1) {
+     document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
+   }
+    else if(pass2 == 1){
+      document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('agenda')[0])
+    }
+   if(document.getElementsByClassName('calendar')[0] == undefined){
+     let div = document.createElement('div')
+     div.classList.add('calendar')
+     document.getElementsByClassName('events')[0].appendChild(div)
+   }
+   document.getElementsByClassName('daysInWeek')[0].style.display = 'flex'
+
+  //on arrow click (left, rigth) show months (with limit +- 2 months)
    leftArrow[0].onclick = () => {
       m--
         if(m >= -2){
@@ -131,14 +153,7 @@ var calendar = document.getElementsByClassName('calendar')
    }makeCalendarGrid()
 
 
-
-        //borderHack - for solving css problem
-        // var borderHack = document.createElement('DIV')
-        // borderHack.classList.add('border-hack')
-        // calendar[0].appendChild(borderHack)
-
 //show only days in this month removing days from last presented month
-
     function removeDays(){
       var calendarNodes = document.getElementsByClassName('coverDiv')
       let i =  0
@@ -150,7 +165,6 @@ var calendar = document.getElementsByClassName('calendar')
             }
         }
     }
-
 
 
   //montly function shows events in calendar view
@@ -174,7 +188,6 @@ var calendar = document.getElementsByClassName('calendar')
 
   //add values to days which has event, for other days add nothing
   var p2 = document.getElementsByClassName('p2')
-console.log(m)
           for(var k = 0; k < daysInMonth; k++) {
             if(p2[k] == undefined) {
               // console.log('')
@@ -223,17 +236,17 @@ console.log(m)
                       var thisImage = document.createElement('IMG')
                       var thisHeading = document.createElement('H2')
                       var thisPara = document.createElement('P')
-                      var targetParrent = this.event.target.parentElement.classList.item(1)
+                      var targetparent = this.event.target.parentElement.classList.item(1)
                       var position;
 
                         //add suffix to the day
-                          if(targetParrent == 1){
+                          if(targetparent == 1){
                             position = 'st'
                           }
-                          else if(targetParrent == 2) {
+                          else if(targetparent == 2) {
                             position = 'nd'
                           }
-                          else if(targetParrent == 3) {
+                          else if(targetparent == 3) {
                             position = 'rd'
                           }
                           else {
@@ -252,7 +265,7 @@ console.log(m)
                       detailsDiv[0].appendChild(thisImage)
 
                       detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
-                      detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetParrent + position} ${events[index].time}  `
+                      detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time}  `
                     }thisIndex()
                 }
 
@@ -289,12 +302,12 @@ console.log(m)
                 divs[p-1].style.background = 'rgb(253, 102, 102)'
                 divs[p-1].getElementsByClassName('dayDiv')[0].style.height = '98%'
                 divs[p-1].getElementsByClassName('dayDiv')[0].style.width = '98.2%'
+                divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontSize = '18px'
+                divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontWeight = 'bold'
                 divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
               }
             }
           }markCurrentDate()
-          console.log('Kraj: + =============================')
-
       }montly()
 
 
@@ -348,4 +361,353 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
                  detailsDiv[0].removeChild(newNodes[i])
                }
            }
+      }
+      pass2 = 0
+      pass3 = 0
+      pass++
     }
+  }//month view
+
+  // if(pass == 0){
+  //   if(pass3 == 1) {
+  //    document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
+  //  }
+  //   else if(pass2 == 1){
+  //     document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('agenda')[0])
+  //   }
+  //  if(document.getElementsByClassName('calendar')[0] == undefined){
+  //    let div = document.createElement('div')
+  //    div.classList.add('calendar')
+  //    document.getElementsByClassName('events')[0].appendChild(div)
+  //  }
+
+  agenBtn.onclick = function(){
+      if(pass2 == 0 ){
+       if(pass == 1){
+         document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('calendar')[0])
+         document.getElementsByClassName('daysInWeek')[0].style.display = 'none'
+         } else if(pass3 == 1) {
+           document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
+         }
+         let div = document.createElement('div')
+         div.classList.add('agenda')
+         document.getElementsByClassName('events')[0].appendChild(div)
+      }
+        pass = 0
+        pass3 = 0
+        pass2++
+        showEvents()
+        montly()
+  }
+
+  pinBtn.onclick = function(){
+      if(pass3 == 0){
+          if(pass == 1){
+            document.getElementsByClassName('daysInWeek')[0].style.display = 'none'
+            document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('calendar')[0])
+          } else if(pass2 == 1){
+            document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('agenda')[0])
+          }
+          let div = document.createElement('div')
+          div.classList.add('pinboard')
+          document.getElementsByClassName('events')[0].appendChild(div)
+      }
+        pass = 0
+        pass2 = 0
+        pass3++
+        showEvents()
+        montly()
+  }
+
+  //on arrow click (left, rigth) show months (with limit +- 2 months)
+   leftArrow[0].onclick = () => {
+      m--
+        if(m >= -2){
+          removeDays()
+          showEvents()
+          montly()
+        }
+        else if (m < -2){
+          m = -2
+        }
+   }
+
+   rightArrow[0].onclick = () => {
+      m++
+        if(m <= 2){
+          removeDays()
+          showEvents()
+          montly()
+        }
+        else if(m > 2){
+          m = 2
+        }
+   }
+
+  var parentDiv;
+
+  //show only days in this month removing days from last presented month
+   function removeDays(){
+        var parentsNodes = document.getElementsByClassName('coverDiv')
+        let i = 0
+          for(i; i < daysInMonth; i++){
+            parentsNodes[0].style.display = 'none';
+            parentDiv[0].removeChild(parentsNodes[0])
+              if(i == undefined){
+                i = i - 1
+              }
+          }
+      }
+
+  function showEvents(){
+    let i = 0;
+
+     for(let i = 0; i < daysInMonth; i++) {
+       //add html elements to calendar (div);
+       //number of elements (coverDiv, dayEle) will depend on number of days in current month
+       var coverDiv = document.createElement('DIV')
+         if(pass2 == 1){
+           parentDiv = document.getElementsByClassName('agenda')
+           parentDiv[0].appendChild(coverDiv)
+         } else if (pass3 == 1){
+           parentDiv = document.getElementsByClassName('pinboard')
+         }
+         coverDiv.classList.add('coverDiv')
+       }
+
+       //for easier manipulation with CSS, logic is to push elements in -
+       //5 columns (i -> to first col. i -> to second...)
+       var col = 1
+
+       for(let i = 0; i < 5; i++) {
+         let div = document.createElement('div')
+         div.classList.add('pinColumn')
+         // console.log(div)
+         // console.log(parentDiv)
+         // console.log(i)
+         parentDiv[0].appendChild(div)
+       }
+
+
+     function daysToCalendar(){
+       //get day of prvog dana tog meseca i njegov dan u nedelji, taj index nedljni koristi kao
+       //pocetnu poziciju za div
+       currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
+
+       // var i = currentMonth.getDay()
+
+       //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
+       var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
+
+         for(let i = 0; i < daysInMonth; i++) {
+           var dayEle = document.createElement('DIV')
+           var imgDiv = document.createElement('DIV')
+           var txtDiv = document.createElement('DIV')
+           var p2 = document.createElement('P')
+           var p1 = document.createElement('P')
+           var img  = document.createElement('IMG')
+           var span = document.createElement('SPAN')
+           var coverDiv = document.getElementsByClassName('coverDiv')
+
+           p2.classList.add('p2')
+           dayEle.classList.add('dayDiv', i + 1)
+           imgDiv.appendChild(img)
+           txtDiv.appendChild(p1)
+           txtDiv.appendChild(p2)
+           dayEle.appendChild(imgDiv)
+           dayEle.appendChild(txtDiv)
+
+           if(pass3 != 1){
+             coverDiv[0].appendChild(dayEle)
+           }
+
+           else if(pass3 == 1) {
+              let coverDivEle = document.createElement('DIV')
+              coverDivEle.classList.add('coverDiv')
+              coverDivEle.appendChild(dayEle)
+              parentDiv[0].appendChild(coverDivEle)
+             if(col == 1) {
+               document.getElementsByClassName('pinColumn')[0].appendChild(coverDivEle)
+               col = 2
+             }
+             else if (col == 2) {
+               document.getElementsByClassName('pinColumn')[1].appendChild(coverDivEle)
+               col = 3
+             }
+             else if (col == 3) {
+               document.getElementsByClassName('pinColumn')[2].appendChild(coverDivEle)
+               col = 4
+             }
+             else if (col == 4) {
+               document.getElementsByClassName('pinColumn')[3].appendChild(coverDivEle)
+               col = 5
+             }
+             else if (col == 5) {
+               document.getElementsByClassName('pinColumn')[4].appendChild(coverDivEle)
+               col = 1
+             }
+           }
+         }
+      }daysToCalendar()
+}
+
+
+function montly(){
+  //show heading
+  var h1 = document.getElementsByClassName('day-month')
+  h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+
+  var eventsNames = [];
+  var eventsTimes = [];
+  var eventsImages = [];
+
+  var j = currentMonth.getDay();
+  var g = currentMonth.getDay();
+
+//from events array(object) push specified props to new arrays
+  for(let i = 0; i < events.length; i++) {
+    eventsNames.push(events[i].name)
+    eventsTimes.push(events[i].time)
+    eventsImages.push(events[i].image)
+}
+
+//add values to days which has event, for other days add nothing
+var p2 = document.getElementsByClassName('p2')
+      for(var k = 0; k < daysInMonth; k++) {
+        if(p2[k] == undefined) {
+          // console.log('')
+        }
+        else {
+        //on event click show user new window (page) with more details
+            p2[k].onclick = () => {
+              var detailsDiv = document.getElementsByClassName('details-div')
+              var gif = document.getElementsByClassName('gif')
+              let dayMonth = document.getElementsByClassName('day-month')
+              let daysInWeek = document.getElementsByClassName('daysInWeek')
+              let options = document.getElementsByClassName('options')
+
+              //run css and animations
+              parentDiv[0].style.opacity = '0'
+              gif[0].style.display = 'block';
+
+              dayMonth[0].style.transition = '.5s opacity'
+              daysInWeek[0].style.transition = '.5s opacity'
+              options[0].style.transition = '.5s opacity'
+
+              dayMonth[0].style.opacity = '0'
+              daysInWeek[0].style.opacity = '0'
+              options[0].style.opacity = '0'
+
+              parentDiv[0].classList.add('hs')
+
+              gif[0].style.animationDelay = '.4s'
+              gif[0].style.animationIterationCount = '1'
+              gif[0].style.animationPlayState = 'running'
+
+                function exe1(){
+                  options[0].classList.add('hs')
+                  dayMonth[0].classList.add('hs')
+                  daysInWeek[0].classList.add('hs')
+                }setTimeout(exe1, 600)
+
+                detailsDiv[0].style.display = 'block'
+                detailsDiv[0].style.animationPlayState = 'running'
+
+                //"Detail window"
+                //get target class name(number) and use that as index to show data
+                 function thisIndex(){
+                  var index = this.event.target.classList.item(1)
+                  var thisImage = document.createElement('IMG')
+                  var thisHeading = document.createElement('H2')
+                  var thisPara = document.createElement('P')
+                  var targetparent = this.event.target.parentElement.classList.item(1)
+                  var position;
+
+                    //add suffix to the day
+                      if(targetparent == 1){
+                        position = 'st'
+                      }
+                      else if(targetparent == 2) {
+                        position = 'nd'
+                      }
+                      else if(targetparent == 3) {
+                        position = 'rd'
+                      }
+                      else {
+                        position = 'th'
+                      }
+
+                  thisImage.setAttribute('src', events[index].image)
+
+                  //set these classes for easier removing later, when "back" button is clicked
+                  thisImage.classList.add('newNodes')
+                  thisHeading.classList.add('newNodes')
+                  thisPara.classList.add('newNodes')
+
+                  detailsDiv[0].appendChild(thisHeading)
+                  detailsDiv[0].appendChild(thisPara)
+                  detailsDiv[0].appendChild(thisImage)
+
+                  detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
+                  detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time}  `
+                }thisIndex()
+            }
+            var position;
+
+              //add suffix to the day
+                if(k+1 == 1){
+                  position = 'st'
+                }
+                else if(k+1 == 2) {
+                  position = 'nd'
+                }
+                else if(k+1 == 3) {
+                  position = 'rd'
+                }
+                else {
+                  position = 'th'
+                }
+
+          parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsNames[j]
+          parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML =
+          days[j].slice(0, 3) + ' ' + months[d.getMonth() + (m)].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
+          parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('img')[0].setAttribute('src', eventsImages[j])
+           //add class for each element (0 - 6) and use that class as index to get data for details page
+          parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].classList.add(j)
+
+          j++
+          g++
+
+             if (j == eventsTimes.length && g == days.length) {
+               j = 0;
+               g = 0;
+             }
+               else if(eventsTimes[j] == undefined && eventsNames[j] == undefined){
+                  parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
+                  parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
+               }
+                 else if (days[g-1] == "Wednesday" || days[g-1] == "Thursday" || days[g-1] == "Friday" ) {
+                   parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
+                   parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
+              }
+                else if(k > daysInMonth) {
+                  parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
+                  parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
+                }
+            }
+    }
+
+    //get this date and mark that box (div) in calendar
+      function markCurrentDate() {
+      var divs = document.getElementsByClassName('coverDiv')
+      var currentDate = d.getDate()
+        for(var p = 0; p < divs.length; p++) {
+          if(p == currentDate) {
+            divs[p-1].style.background = 'rgb(253, 102, 102)'
+            // divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontSize = '18px'
+            // divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontWeight = 'bold'
+            // divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
+          }
+        }
+      }markCurrentDate()
+  }
