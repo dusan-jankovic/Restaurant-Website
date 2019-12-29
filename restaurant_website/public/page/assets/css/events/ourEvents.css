@@ -207,8 +207,7 @@ body {
   .events .day-month {
     color: #ccc; }
   .events .daysInWeek {
-    display: -webkit-box;
-    display: flex;
+    display: none;
     -webkit-box-pack: start;
     justify-content: flex-start;
     font-size: .9em;
@@ -267,10 +266,6 @@ body {
           transition: .5s border-bottom; }
           .events .calendar .coverDiv .dayDiv p:last-of-type:hover {
             border-bottom: 3.5px solid #fd6666; }
-    .events .calendar .lastParEle {
-      width: 14.33%; }
-    .events .calendar .lastElement {
-      border-right: .5px solid #1d1717; }
   .events .border-hack {
     height: 150px;
     min-width: auto;
@@ -440,6 +435,90 @@ body {
       padding: 1px 0 0; }
     .events .calendar .coverDiv {
       width: 111px;
-      margin: 1.5px; }
-    .events .calendar .lastParEle {
-      width: 111.9px; } }
+      margin: 1.5px; } }
+
+.agenda {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  justify-content: center; }
+  .agenda .coverDiv {
+    width: 98%;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee; }
+    .agenda .coverDiv .dayDiv {
+      display: -webkit-box;
+      display: flex;
+      flex-wrap: wrap-reverse;
+      height: 135px;
+      margin: 20px 0; }
+      .agenda .coverDiv .dayDiv div:nth-of-type(2) {
+        margin-left: 20px;
+        max-width: 80%; }
+        .agenda .coverDiv .dayDiv div:nth-of-type(2) p:first-of-type {
+          font-size: 1.3em;
+          font-weight: bolder;
+          color: #917952; }
+        .agenda .coverDiv .dayDiv div:nth-of-type(2) p:last-of-type {
+          font-size: 0.85em; }
+      .agenda .coverDiv .dayDiv img {
+        width: 140px;
+        height: 100%;
+        margin-left: 15px;
+        border: 2px solid black;
+        outline: 3px solid #917952; }
+      .agenda .coverDiv .dayDiv p:nth-of-type(2) {
+        width: 90%; }
+
+@media only screen and (max-width: 550px) {
+  .agenda .coverDiv img {
+    width: 80px;
+    height: 80%;
+    align-self: center; } }
+
+@media only screen and (max-width: 426px) {
+  .agenda .coverDiv .dayDiv {
+    display: block;
+    height: auto;
+    padding: 10px 0; }
+  .agenda .coverDiv img {
+    display: none; } }
+
+.pinboard {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  -webkit-box-align: start;
+  align-items: flex-start; }
+  .pinboard .pinColumn {
+    width: 18%; }
+  .pinboard .coverDiv {
+    width: 100%;
+    margin: 25px 0;
+    border: 1px solid #eee;
+    border-radius: 7px;
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap; }
+    .pinboard .coverDiv img {
+      width: 100%;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px; }
+    .pinboard .coverDiv p:first-of-type {
+      color: #917952;
+      font-size: 1.1em;
+      padding: 7px 10px 0;
+      font-weight: bolder; }
+    .pinboard .coverDiv p:last-of-type {
+      font-size: .95em;
+      padding: 7px 14px 35px; }
+  .pinboard .pinColumn:first-of-type .coverDiv:nth-child(1) img {
+    height: 230px; }
+  .pinboard .coverDiv:nth-child(2n+2) img {
+    height: 200px; }
+  .pinboard .coverDiv:nth-child(3n+0) {
+    height: 340px; }
+    .pinboard .coverDiv:nth-child(3n+0) img {
+      height: 250px; }
