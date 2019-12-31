@@ -22,7 +22,7 @@ var events = [
         time: '5pm-12am',
         date:'',
         name:'Mezcal Monday - LA',
-        image:'https://d3flpus5evl89n.cloudfront.net/5ae7a89edf82fe0acf63df87/5d31f5bfdf82fe23aacf5967/square_272x272.jpg'
+        image:'https://d3flpus5evl89n.cloudfront.net/5ae7a89edf82fe0acf63df87/5b88e416df82fe27b390eef2/square_272x272.jpg'
       },
       {
         time: '5pm-2am',
@@ -69,8 +69,13 @@ var m = 0;
 var pass = 0;
 var pass2 = 0;
 var pass3 = 0;
+//limit to only 1 click for view button
+var isActive1 = 'active'
+var isActive2 = 'active'
+var isActive3 = 'active'
 
   monthBtn.onclick = function() {
+ if(isActive1 == 'active'){
   if(pass == 0){
     if(pass3 == 1) {
      document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
@@ -171,7 +176,31 @@ var calendar = document.getElementsByClassName('calendar')
     function montly(){
       //show heading
       var h1 = document.getElementsByClassName('day-month')
-      h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+      var thisMonth = d.getMonth()
+      var thisYear = d.getFullYear()
+      var nextYear = thisYear +1
+      var pastYear = thisYear -1
+
+
+      if(m > 0){
+        //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0
+        if(months[thisMonth + (m)] == undefined){
+          h1[0].innerHTML = months[-1 + (m)] + ' ' + nextYear
+        }
+        //else if not undefined it means current month is not December and stay in this year
+        else if(months[thisMonth + (m)] != undefined){
+          h1[0].innerHTML = months[-1 + (m)] + ' ' + thisYear
+        }
+      }
+
+      else if(m <= 0){
+        if(months[thisMonth + (m)] == undefined){
+          h1[0].innerHTML = months[-1 + (m)] + ' ' + pastYear
+        }
+        else if(months[thisMonth + (m)] != undefined) {
+          h1[0].innerHTML = months[thisMonth + (m)] + ' ' + thisYear
+        }
+      }
 
       var eventsNames = [];
       var eventsTimes = [];
@@ -366,22 +395,26 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
       pass3 = 0
       pass++
     }
-  }//month view
+    isActive1 = ''
+    isActive2 = 'active'
+    isActive3 = 'active'
+ }
+ else {}
+}//month view
 
-  // if(pass == 0){
-  //   if(pass3 == 1) {
-  //    document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
-  //  }
-  //   else if(pass2 == 1){
-  //     document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('agenda')[0])
-  //   }
-  //  if(document.getElementsByClassName('calendar')[0] == undefined){
-  //    let div = document.createElement('div')
-  //    div.classList.add('calendar')
-  //    document.getElementsByClassName('events')[0].appendChild(div)
-  //  }
+  document.getElementsByTagName('body')[0].onload = function() {
+    let div = document.createElement('div')
+    div.classList.add('agenda')
+    document.getElementsByClassName('events')[0].appendChild(div)
+
+    pass2 = 1;
+    showEvents()
+    montly()
+    isActive2 = ''
+  }
 
   agenBtn.onclick = function(){
+    if(isActive2 == 'active'){
       if(pass2 == 0 ){
        if(pass == 1){
          document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('calendar')[0])
@@ -398,9 +431,15 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
         pass2++
         showEvents()
         montly()
+        isActive2 = ''
+        isActive1 = 'active'
+        isActive3 = 'active'
+      }
+      else {}
   }
 
   pinBtn.onclick = function(){
+    if(isActive3 == 'active'){
       if(pass3 == 0){
           if(pass == 1){
             document.getElementsByClassName('daysInWeek')[0].style.display = 'none'
@@ -417,10 +456,19 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
         pass3++
         showEvents()
         montly()
+        isActive3 = ''
+        isActive1 = 'active'
+        isActive2 = 'active'
+     }
+     else {}
   }
 
   //on arrow click (left, rigth) show months (with limit +- 2 months)
+  //arrowType variable for passing value (right / left) to function to let her know which one is triggered
+  var arrowType;
+
    leftArrow[0].onclick = () => {
+     arrowType = 'left'
       m--
         if(m >= -2){
           removeDays()
@@ -433,6 +481,7 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
    }
 
    rightArrow[0].onclick = () => {
+     arrowType = 'right'
       m++
         if(m <= 2){
           removeDays()
@@ -449,14 +498,21 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
   //show only days in this month removing days from last presented month
    function removeDays(){
         var parentsNodes = document.getElementsByClassName('coverDiv')
-        let i = 0
-          for(i; i < daysInMonth; i++){
-            parentsNodes[0].style.display = 'none';
+         if(pass3 != 1){
+          for(let i = 0; i < daysInMonth; i++){
+            parentsNodes[0].style.display = 'none'
             parentDiv[0].removeChild(parentsNodes[0])
               if(i == undefined){
                 i = i - 1
               }
           }
+        }
+        else if (pass3 == 1){
+          parentsCol = document.getElementsByClassName('pinColumn')
+          for(let i = 0; parentsCol.length > 0; i++){
+            parentDiv[0].removeChild(parentsCol[0])
+          }
+        }
       }
 
   function showEvents(){
@@ -476,15 +532,12 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
        }
 
        //for easier manipulation with CSS, logic is to push elements in -
-       //5 columns (i -> to first col. i -> to second...)
+       //5 columns (i -> to first col. i -> to second...) ##plug
        var col = 1
 
        for(let i = 0; i < 5; i++) {
          let div = document.createElement('div')
          div.classList.add('pinColumn')
-         // console.log(div)
-         // console.log(parentDiv)
-         // console.log(i)
          parentDiv[0].appendChild(div)
        }
 
@@ -518,9 +571,10 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
            dayEle.appendChild(txtDiv)
 
            if(pass3 != 1){
-             coverDiv[0].appendChild(dayEle)
+             coverDiv[i].appendChild(dayEle)
            }
 
+          //##in
            else if(pass3 == 1) {
               let coverDivEle = document.createElement('DIV')
               coverDivEle.classList.add('coverDiv')
@@ -551,11 +605,69 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
       }daysToCalendar()
 }
 
+var check;
+var check2;
 
+//display data
 function montly(){
   //show heading
   var h1 = document.getElementsByClassName('day-month')
-  h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+  var thisMonth = d.getMonth()
+  var thisYear = d.getFullYear()
+
+function addHeading(){
+  //show heading
+  var h1 = document.getElementsByClassName('day-month')
+  var thisMonth = d.getMonth()
+  var thisYear = d.getFullYear()
+  // console.log(months[thisMonth + (m)])
+
+     if(m > 0){
+       //let know other statements that m was > than 0 by setting:
+       check = 1;
+       console.log(check)
+        //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0(1)
+        if(months[thisMonth + (m)] == undefined){
+           d.setFullYear(thisYear + 1)
+           d.setMonth(0)
+           h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
+        }
+        //else if not undefined it means current month is not December and stay in this year
+        else if(months[thisMonth + (m)] != undefined){
+          h1[0].innerHTML = months[m - 1] + ' ' + d.getFullYear()
+        }
+      }
+
+      else if(m < 0){
+        //let know other statements that m was > than 0 by setting:
+        check2 = 2;
+        if(months[thisMonth + (m)] == undefined){
+          h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+        }
+        else if(months[thisMonth + (m)] != undefined) {
+          h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+        }
+      }
+
+      else if(m == 0){
+        if(check == undefined || check2 == 2){
+          console.log('undefined je')
+          d.setMonth(11)
+          d.setFullYear(d.getFullYear())
+          // d.setMonth(thisMonth)
+          h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+        }
+        else if(check == 1){
+          console.log('1 je')
+            d.setMonth(11)
+            d.setFullYear(d.getFullYear() -1)
+            // d.setMonth(thisMonth)
+            h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+            check == undefined
+        }
+      }
+  }
+  addHeading()
 
   var eventsNames = [];
   var eventsTimes = [];
@@ -649,7 +761,7 @@ var p2 = document.getElementsByClassName('p2')
                   detailsDiv[0].appendChild(thisImage)
 
                   detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
-                  detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time}  `
+                  detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time} `
                 }thisIndex()
             }
             var position;
@@ -673,7 +785,10 @@ var p2 = document.getElementsByClassName('p2')
           days[j].slice(0, 3) + ' ' + months[d.getMonth() + (m)].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
           parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('img')[0].setAttribute('src', eventsImages[j])
            //add class for each element (0 - 6) and use that class as index to get data for details page
-          parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].classList.add(j)
+          parentDiv[0].getElementsByClassName('dayDiv')
+
+
+          [k].getElementsByTagName('p')[1].classList.add(j)
 
           j++
           g++
@@ -704,9 +819,6 @@ var p2 = document.getElementsByClassName('p2')
         for(var p = 0; p < divs.length; p++) {
           if(p == currentDate) {
             divs[p-1].style.background = 'rgb(253, 102, 102)'
-            // divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontSize = '18px'
-            // divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontWeight = 'bold'
-            // divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
           }
         }
       }markCurrentDate()
