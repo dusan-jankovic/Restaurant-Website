@@ -74,10 +74,11 @@ var isActive1 = 'active'
 var isActive2 = 'active'
 var isActive3 = 'active'
 
-  monthBtn.onclick = function() {
+monthBtn.onclick = function() {
  if(isActive1 == 'active'){
   if(pass == 0){
     if(pass3 == 1) {
+      console.log('koci pas3')
      document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
    }
     else if(pass2 == 1){
@@ -178,29 +179,66 @@ var calendar = document.getElementsByClassName('calendar')
       var h1 = document.getElementsByClassName('day-month')
       var thisMonth = d.getMonth()
       var thisYear = d.getFullYear()
-      var nextYear = thisYear +1
-      var pastYear = thisYear -1
 
+    function addHeading(){
+      //show heading
+      var h1 = document.getElementsByClassName('day-month')
+      var thisMonth = d.getMonth()
+      var thisYear = d.getFullYear()
 
-      if(m > 0){
-        //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0
-        if(months[thisMonth + (m)] == undefined){
-          h1[0].innerHTML = months[-1 + (m)] + ' ' + nextYear
-        }
-        //else if not undefined it means current month is not December and stay in this year
-        else if(months[thisMonth + (m)] != undefined){
-          h1[0].innerHTML = months[-1 + (m)] + ' ' + thisYear
-        }
+         if(m > 0){
+           //let know other statements that m was > than 0 by setting:
+           check = 1;
+            //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0(1)
+            if(months[thisMonth + (m)] == undefined){
+               d.setFullYear(thisYear + 1)
+               d.setMonth(0)
+               h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
+            }
+            //else if not undefined it means current month is not December and stay in this year
+            else if(months[thisMonth + (m)] != undefined){
+              h1[0].innerHTML = months[d.getMonth() + m] + ' ' + d.getFullYear()
+            }
+          }
+
+          else if(m < 0){
+            //let know other statements that m was > than 0 by setting:
+            check2 = 2;
+            if(months[thisMonth + (m)] == undefined){
+              d.setFullYear(d.getFullYear() - 1)
+              d.setMonth(11)
+              console.log(1)
+              h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
+            }
+            else if(months[thisMonth + (m)] != undefined) {
+              console.log(2)
+              h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
+            }
+          }
+
+          else if(m == 0){
+            if(check == undefined){
+              d = new Date()
+              // d.setFullYear(d.getFullYear())
+              // d.setMonth(thisMonth)
+              h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+            }
+            else if(check == 1){
+                d.setMonth(0)
+                d.setFullYear(d.getFullYear())
+                // d.setMonth(thisMonth)
+                h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
+                check = undefined
+            }
+            else if (check2 == 2 ){
+              d.setMonth(11)
+              // d.setMonth(thisMonth)
+              h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+              check2 = undefined
+            }
+          }
       }
-
-      else if(m <= 0){
-        if(months[thisMonth + (m)] == undefined){
-          h1[0].innerHTML = months[-1 + (m)] + ' ' + pastYear
-        }
-        else if(months[thisMonth + (m)] != undefined) {
-          h1[0].innerHTML = months[thisMonth + (m)] + ' ' + thisYear
-        }
-      }
+      addHeading()
 
       var eventsNames = [];
       var eventsTimes = [];
@@ -265,7 +303,7 @@ var calendar = document.getElementsByClassName('calendar')
                       var thisImage = document.createElement('IMG')
                       var thisHeading = document.createElement('H2')
                       var thisPara = document.createElement('P')
-                      var targetparent = this.event.target.parentElement.classList.item(1)
+                      var targetparent = this.event.target.parentElement.classList.item(2)
                       var position;
 
                         //add suffix to the day
@@ -297,7 +335,7 @@ var calendar = document.getElementsByClassName('calendar')
                       detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time}  `
                     }thisIndex()
                 }
-
+              calendar[0].getElementsByClassName('dayDiv')[k].classList.add(parseInt(k+1))
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('span')[0].innerHTML = parseInt(k+1)
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsTimes[j]
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = eventsNames[j]
@@ -323,74 +361,23 @@ var calendar = document.getElementsByClassName('calendar')
         }
 
         //get this date and mark that box (div) in calendar
-          function markCurrentDate() {
-          var divs = document.getElementsByClassName('coverDiv')
-          var currentDate = d.getDate()
-            for(var p = 0; p < divs.length; p++) {
-              if(p == currentDate) {
-                divs[p-1].style.background = 'rgb(253, 102, 102)'
-                divs[p-1].getElementsByClassName('dayDiv')[0].style.height = '98%'
-                divs[p-1].getElementsByClassName('dayDiv')[0].style.width = '98.2%'
-                divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontSize = '18px'
-                divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontWeight = 'bold'
-                divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
-              }
-            }
-          }markCurrentDate()
+          // function markCurrentDate() {
+          // var divs = document.getElementsByClassName('coverDiv')
+          // var currentDate = d.getDate()
+          //   for(var p = 0; p < divs.length; p++) {
+          //     if(p == currentDate) {
+          //       console.log(divs.length)
+          //       divs[p-1].style.background = 'rgb(253, 102, 102)'
+          //       divs[p-1].getElementsByClassName('dayDiv')[0].style.height = '98%'
+          //       divs[p-1].getElementsByClassName('dayDiv')[0].style.width = '98.2%'
+          //       divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontSize = '18px'
+          //       divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontWeight = 'bold'
+          //       divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
+          //     }
+          //   }
+          // }markCurrentDate()
       }montly()
 
-
-//on "back" button click return user to the calendar view
-var backBtn = document.getElementById('back-btn')
-
-    backBtn.onclick = () => {
-      var calendar = document.getElementsByClassName('calendar')
-      var detailsDiv = document.getElementsByClassName('details-div')
-      var gif = document.getElementsByClassName('gif')
-      let dayMonth = document.getElementsByClassName('day-month')
-      let daysInWeek = document.getElementsByClassName('daysInWeek')
-      let options = document.getElementsByClassName('options')
-
-      //run css and animations
-      gif[0].style.display = 'none'
-      gif[0].style.animationPlayState = 'paused'
-
-      detailsDiv[0].style.animationPlayState = '1'
-      detailsDiv[0].style.animationPlayState = 'running'
-      detailsDiv[0].style.opacity = '0'
-      detailsDiv[0].style.animationPlayState = 'running'
-      detailsDiv[0].style.display = 'none'
-
-      calendar[0].style.transition = '.5s opacity'
-      calendar[0].classList.remove('hs')
-      options[0].classList.remove('hs')
-      dayMonth[0].classList.remove('hs')
-      daysInWeek[0].classList.remove('hs')
-
-    function exe1(){
-      calendar[0].style.opacity = '1'
-      dayMonth[0].style.opacity = '1'
-      daysInWeek[0].style.opacity = '1'
-      options[0].style.opacity = '1'
-    }
-
-    setTimeout(exe1, 600)
-
-
-var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
-
-         for(let i = 0; i < newNodes.length; i++){
-           detailsDiv[0].removeChild(newNodes[i])
-           detailsDiv[0].removeChild(newNodes[0])
-
-             if(i == newNodes.length ) {
-               i = 0;
-             }
-               else {
-                 detailsDiv[0].removeChild(newNodes[i])
-               }
-           }
-      }
       pass2 = 0
       pass3 = 0
       pass++
@@ -402,16 +389,17 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
  else {}
 }//month view
 
-  document.getElementsByTagName('body')[0].onload = function() {
+//when user land on the page, show one event view(agenda in this case)
+  function showOneOfTheViews() {
     let div = document.createElement('div')
     div.classList.add('agenda')
     document.getElementsByClassName('events')[0].appendChild(div)
+      pass2++
+      showEvents()
+      montly()
+      isActive2 = ''
+  }showOneOfTheViews()
 
-    pass2 = 1;
-    showEvents()
-    montly()
-    isActive2 = ''
-  }
 
   agenBtn.onclick = function(){
     if(isActive2 == 'active'){
@@ -543,8 +531,7 @@ var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
 
 
      function daysToCalendar(){
-       //get day of prvog dana tog meseca i njegov dan u nedelji, taj index nedljni koristi kao
-       //pocetnu poziciju za div
+       //get day of first day of that month and his day in week, that weekly index use as start position
        currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
 
        // var i = currentMonth.getDay()
@@ -620,12 +607,10 @@ function addHeading(){
   var h1 = document.getElementsByClassName('day-month')
   var thisMonth = d.getMonth()
   var thisYear = d.getFullYear()
-  // console.log(months[thisMonth + (m)])
 
      if(m > 0){
        //let know other statements that m was > than 0 by setting:
        check = 1;
-       console.log(check)
         //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0(1)
         if(months[thisMonth + (m)] == undefined){
            d.setFullYear(thisYear + 1)
@@ -634,7 +619,7 @@ function addHeading(){
         }
         //else if not undefined it means current month is not December and stay in this year
         else if(months[thisMonth + (m)] != undefined){
-          h1[0].innerHTML = months[m - 1] + ' ' + d.getFullYear()
+          h1[0].innerHTML = months[d.getMonth() + m] + ' ' + d.getFullYear()
         }
       }
 
@@ -642,28 +627,36 @@ function addHeading(){
         //let know other statements that m was > than 0 by setting:
         check2 = 2;
         if(months[thisMonth + (m)] == undefined){
-          h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+          d.setFullYear(d.getFullYear() - 1)
+          d.setMonth(11)
+          console.log(1)
+          h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
         }
         else if(months[thisMonth + (m)] != undefined) {
-          h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+          console.log(2)
+          h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
         }
       }
 
       else if(m == 0){
-        if(check == undefined || check2 == 2){
-          console.log('undefined je')
-          d.setMonth(11)
-          d.setFullYear(d.getFullYear())
+        if(check == undefined){
+          d = new Date()
+          // d.setFullYear(d.getFullYear())
           // d.setMonth(thisMonth)
           h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
         }
         else if(check == 1){
-          console.log('1 je')
-            d.setMonth(11)
-            d.setFullYear(d.getFullYear() -1)
+            d.setMonth(0)
+            d.setFullYear(d.getFullYear())
             // d.setMonth(thisMonth)
-            h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
-            check == undefined
+            h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
+            check = undefined
+        }
+        else if (check2 == 2 ){
+          d.setMonth(11)
+          // d.setMonth(thisMonth)
+          h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+          check2 = undefined
         }
       }
   }
@@ -684,14 +677,16 @@ function addHeading(){
 }
 
 //add values to days which has event, for other days add nothing
-var p2 = document.getElementsByClassName('p2')
+var dDiv = document.getElementsByClassName('dayDiv')
+var col2 = 1;
+
       for(var k = 0; k < daysInMonth; k++) {
-        if(p2[k] == undefined) {
+        if(dDiv[k] == undefined) {
           // console.log('')
         }
         else {
         //on event click show user new window (page) with more details
-            p2[k].onclick = () => {
+            dDiv[k].onclick = () => {
               var detailsDiv = document.getElementsByClassName('details-div')
               var gif = document.getElementsByClassName('gif')
               let dayMonth = document.getElementsByClassName('day-month')
@@ -728,21 +723,24 @@ var p2 = document.getElementsByClassName('p2')
                 //"Detail window"
                 //get target class name(number) and use that as index to show data
                  function thisIndex(){
-                  var index = this.event.target.classList.item(1)
+                   //event.currentTarget to stop influence on elements(childrens) which does not have attached onclick event
+                  //index (class item 2) in dayDiv is as index for data from object (image, h2, p))
+                  var index = this.event.currentTarget.classList.item(2)
                   var thisImage = document.createElement('IMG')
                   var thisHeading = document.createElement('H2')
                   var thisPara = document.createElement('P')
-                  var targetparent = this.event.target.parentElement.classList.item(1)
+                  //index place (class item 1) is to match correct date with using class item 1
+                  var indexPlace = this.event.currentTarget.classList.item(1)
                   var position;
 
                     //add suffix to the day
-                      if(targetparent == 1){
+                      if(indexPlace == 1){
                         position = 'st'
                       }
-                      else if(targetparent == 2) {
+                      else if(indexPlace == 2) {
                         position = 'nd'
                       }
-                      else if(targetparent == 3) {
+                      else if(indexPlace == 3) {
                         position = 'rd'
                       }
                       else {
@@ -761,11 +759,11 @@ var p2 = document.getElementsByClassName('p2')
                   detailsDiv[0].appendChild(thisImage)
 
                   detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
-                  detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time} `
+                  detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
                 }thisIndex()
             }
-            var position;
 
+            var position;
               //add suffix to the day
                 if(k+1 == 1){
                   position = 'st'
@@ -785,10 +783,77 @@ var p2 = document.getElementsByClassName('p2')
           days[j].slice(0, 3) + ' ' + months[d.getMonth() + (m)].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
           parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('img')[0].setAttribute('src', eventsImages[j])
            //add class for each element (0 - 6) and use that class as index to get data for details page
-          parentDiv[0].getElementsByClassName('dayDiv')
 
+         if(pass2 == 1){
+           parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+           parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].parentElement.parentElement.classList.add(j)
+          }
+          if(pass3 == 1){
+            let pinColumn = document.getElementsByClassName('pinColumn')
+              for(let i = 0; i < pinColumn[0].getElementsByClassName('coverDiv').length; i++){
+                pinColumn[0].getElementsByClassName('coverDiv')[i].classList.add(k)
+                console.log(k)
+              }
+              console.log('=======================================')
 
-          [k].getElementsByTagName('p')[1].classList.add(j)
+          }
+          //use pincolumn and childs to add classes
+          // if(pass3 == 1){
+          //   let pinColumn = document.getElementsByClassName('pinColumn')
+          //       if(col2 == 1) {
+          //        for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
+          //          pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
+          //        }
+          //         col2 = 2
+          //       }
+          //       else if (col2 == 2) {
+          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
+          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
+          //         }
+          //         col2 = 3
+          //       }
+          //       else if (col2 == 3) {
+          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
+          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
+          //         }
+          //         col2 = 4
+          //       }
+          //       else if (col2 == 4) {
+          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
+          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
+          //         }
+          //         col2 = 5
+          //       }
+          //       else if (col2 == 5) {
+          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
+          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
+          //         }
+          //         col2 = 1
+          //       }
+          // }
+
+            // if(pass3 == 1){
+            //     if(col2 == 1) {
+            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+            //       col2 = 2
+            //     }
+            //     else if (col2 == 2) {
+            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+            //       col2 = 3
+            //     }
+            //     else if (col2 == 3) {
+            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+            //       col2 = 4
+            //     }
+            //     else if (col2 == 4) {
+            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+            //       col2 = 5
+            //     }
+            //     else if (col2 == 5) {
+            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+            //       col2 = 1
+            //     }
+            // }
 
           j++
           g++
@@ -811,6 +876,64 @@ var p2 = document.getElementsByClassName('p2')
                 }
             }
     }
+
+    //on "back" button click return user to the calendar view
+    var backBtn = document.getElementById('back-btn')
+
+        backBtn.onclick = () => {
+          var mainDiv;
+          console.log(parentDiv)
+            if(document.getElementsByClassName('calendar')[0].getElementsByClassName('coverDiv')[0] == undefined){
+              mainDiv = parentDiv
+            }
+              else if(document.getElementsByClassName('calendar')[0].getElementsByClassName('coverDiv')[0] != undefined){
+                mainDiv = document.getElementsByClassName('calendar')
+              }
+          var detailsDiv = document.getElementsByClassName('details-div')
+          var gif = document.getElementsByClassName('gif')
+          let dayMonth = document.getElementsByClassName('day-month')
+          let daysInWeek = document.getElementsByClassName('daysInWeek')
+          let options = document.getElementsByClassName('options')
+
+          //run css and animations - begin
+          gif[0].style.display = 'none'
+          gif[0].style.animationPlayState = 'paused'
+
+          detailsDiv[0].style.animationPlayState = '1'
+          detailsDiv[0].style.animationPlayState = 'running'
+          detailsDiv[0].style.opacity = '0'
+          detailsDiv[0].style.animationPlayState = 'running'
+          detailsDiv[0].style.display = 'none'
+
+          mainDiv[0].style.transition = '.5s opacity'
+          mainDiv[0].classList.remove('hs')
+          options[0].classList.remove('hs')
+          dayMonth[0].classList.remove('hs')
+          daysInWeek[0].classList.remove('hs')
+
+        function exe1(){
+          mainDiv[0].style.opacity = '1'
+          dayMonth[0].style.opacity = '1'
+          daysInWeek[0].style.opacity = '1'
+          options[0].style.opacity = '1'
+        }
+
+        setTimeout(exe1, 600)
+        //run css animations - end
+
+        var newNodes = detailsDiv[0].getElementsByClassName('newNodes')
+
+             for(let i = 0; i < newNodes.length; i++){
+               detailsDiv[0].removeChild(newNodes[i])
+               detailsDiv[0].removeChild(newNodes[0])
+                 if(i == newNodes.length ) {
+                   i = 0;
+                 }
+                   else {
+                     detailsDiv[0].removeChild(newNodes[i])
+                   }
+               }
+          }
 
     //get this date and mark that box (div) in calendar
       function markCurrentDate() {
