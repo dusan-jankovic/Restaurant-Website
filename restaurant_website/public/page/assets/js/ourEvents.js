@@ -74,6 +74,11 @@ var isActive1 = 'active'
 var isActive2 = 'active'
 var isActive3 = 'active'
 
+//shorter for console.log()
+var cl = (x) => {
+   console.log(x)
+ }
+
 monthBtn.onclick = function() {
  if(isActive1 == 'active'){
   if(pass == 0){
@@ -504,7 +509,17 @@ var calendar = document.getElementsByClassName('calendar')
       }
 
   function showEvents(){
+    var aa = 1;
+    var bb = 1;
+    var cc = 1;
+    var dd = 1;
+    var ee = 1;
     let i = 0;
+    var aaa = 0;
+    var bbb = 0;
+    var ccc = 0;
+    var ddd = 0;
+    var eee = 0;
 
      for(let i = 0; i < daysInMonth; i++) {
        //add html elements to calendar (div);
@@ -550,7 +565,9 @@ var calendar = document.getElementsByClassName('calendar')
            var coverDiv = document.getElementsByClassName('coverDiv')
 
            p2.classList.add('p2')
-           dayEle.classList.add('dayDiv', i + 1)
+           if(pass3 != 1){
+             dayEle.classList.add('dayDiv', i + 1)
+           }
            imgDiv.appendChild(img)
            txtDiv.appendChild(p1)
            txtDiv.appendChild(p2)
@@ -565,27 +582,50 @@ var calendar = document.getElementsByClassName('calendar')
            else if(pass3 == 1) {
               let coverDivEle = document.createElement('DIV')
               coverDivEle.classList.add('coverDiv')
+              dayEle.classList.add('dayDiv')
               coverDivEle.appendChild(dayEle)
               parentDiv[0].appendChild(coverDivEle)
              if(col == 1) {
+               cl('aa je: ' + aa)
+               cl('aaa je: ' + aaa)
                document.getElementsByClassName('pinColumn')[0].appendChild(coverDivEle)
+               document.getElementsByClassName('dayDiv')[aaa].classList.add(aa)
                col = 2
+               aa++
+               aaa++
+               bb++
              }
              else if (col == 2) {
                document.getElementsByClassName('pinColumn')[1].appendChild(coverDivEle)
+               document.getElementsByClassName('dayDiv')[bbb].classList.add(bb)
                col = 3
+               bb++
+               bbb++
+               cc++
              }
              else if (col == 3) {
                document.getElementsByClassName('pinColumn')[2].appendChild(coverDivEle)
+               document.getElementsByClassName('dayDiv')[ccc].classList.add(cc)
                col = 4
+               cc++
+               ccc++
+               dd++
              }
              else if (col == 4) {
                document.getElementsByClassName('pinColumn')[3].appendChild(coverDivEle)
+               document.getElementsByClassName('dayDiv')[ddd].classList.add(dd)
                col = 5
+               dd++
+               ddd++
+               ee++
              }
              else if (col == 5) {
                document.getElementsByClassName('pinColumn')[4].appendChild(coverDivEle)
+               document.getElementsByClassName('dayDiv')[eee].classList.add(ee)
                col = 1
+               ee++
+               eee++
+               aa++
              }
            }
          }
@@ -725,12 +765,23 @@ var col2 = 1;
                  function thisIndex(){
                    //event.currentTarget to stop influence on elements(childrens) which does not have attached onclick event
                   //index (class item 2) in dayDiv is as index for data from object (image, h2, p))
-                  var index = this.event.currentTarget.classList.item(2)
+                  var index;
+                  if(pass2 == 1){
+                    index = this.event.currentTarget.classList.item(2)
+                  } else if(pass3 == 1){
+                    index = this.event.currentTarget.classList.item(3)
+                  }
                   var thisImage = document.createElement('IMG')
                   var thisHeading = document.createElement('H2')
                   var thisPara = document.createElement('P')
                   //index place (class item 1) is to match correct date with using class item 1
-                  var indexPlace = this.event.currentTarget.classList.item(1)
+                  var indexPlace;
+                  if(pass2 == 1){
+                    indexPlace = this.event.currentTarget.classList.item(1)
+                  } else if(pass3 == 1){
+                    indexPlace =  this.event.currentTarget.classList.item(2)
+                  }
+
                   var position;
 
                     //add suffix to the day
@@ -784,76 +835,115 @@ var col2 = 1;
           parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('img')[0].setAttribute('src', eventsImages[j])
            //add class for each element (0 - 6) and use that class as index to get data for details page
 
-         if(pass2 == 1){
            parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+           if(pass2 == 1){
            parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].parentElement.parentElement.classList.add(j)
           }
-          if(pass3 == 1){
-            let pinColumn = document.getElementsByClassName('pinColumn')
-              for(let i = 0; i < pinColumn[0].getElementsByClassName('coverDiv').length; i++){
-                pinColumn[0].getElementsByClassName('coverDiv')[i].classList.add(k)
-                console.log(k)
-              }
-              console.log('=======================================')
 
-          }
-          //use pincolumn and childs to add classes
-          // if(pass3 == 1){
-          //   let pinColumn = document.getElementsByClassName('pinColumn')
-          //       if(col2 == 1) {
-          //        for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
-          //          pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
-          //        }
-          //         col2 = 2
-          //       }
-          //       else if (col2 == 2) {
-          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
-          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
-          //         }
-          //         col2 = 3
-          //       }
-          //       else if (col2 == 3) {
-          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
-          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
-          //         }
-          //         col2 = 4
-          //       }
-          //       else if (col2 == 4) {
-          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
-          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
-          //         }
-          //         col2 = 5
-          //       }
-          //       else if (col2 == 5) {
-          //         for(let i = 0; i < pinColumn[col2 -1].getElementsByClassName('dayDiv').length; i++){
-          //           pinColumn[col2 - 1].getElementsByClassName('dayDiv')[i].classList.add(i)
-          //         }
-          //         col2 = 1
-          //       }
-          // }
-
-            // if(pass3 == 1){
-            //     if(col2 == 1) {
-            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
-            //       col2 = 2
-            //     }
-            //     else if (col2 == 2) {
-            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
-            //       col2 = 3
-            //     }
-            //     else if (col2 == 3) {
-            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
-            //       col2 = 4
-            //     }
-            //     else if (col2 == 4) {
-            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
-            //       col2 = 5
-            //     }
-            //     else if (col2 == 5) {
-            //       parentDiv[0].getElementsByClassName('dayDiv')[k].classList.add(j)
-            //       col2 = 1
-            //     }
-            // }
+//           var cl = (x) => {
+//             return console.log(x)
+//           }
+//           if(pass3 == 1){
+//             let pinColumn = document.getElementsByClassName('pinColumn')
+//
+//            if(col2 == 1) {
+//              cl('1)')
+//              // cl('ln je: ' +pinColumn[0].getElementsByClassName('dayDiv').length)
+//              // cl('k je: ' + k)
+//              // cl(j)
+//              if(k < pinColumn[0].getElementsByClassName('dayDiv').length){
+//                   cl('k je: ' + k)
+//                   cl('j je : ' + j)
+//                   cl('len je: '+ pinColumn[0].getElementsByClassName('dayDiv').length)
+//                   pinColumn[0].getElementsByClassName('dayDiv')[k].classList.add(k + 1)
+//                   pinColumn[0].getElementsByClassName('dayDiv')[k].classList.add(j)
+//                   if(k + 1 == pinColumn[0].getElementsByClassName('coverDiv').length) {
+//                     col2 = 2
+//                   }
+//                 }
+//               }
+//
+//             else if(col2 == 2) {
+//               cl('2)')
+//               // cl(j)
+//               // cl('y je: ' + y)
+//               // cl('ln je: ' +pinColumn[1].getElementsByClassName('dayDiv').length *2)
+//               // cl('k je: ' + k)
+//                  if(k < (pinColumn[1].getElementsByClassName('dayDiv').length * 2)) {
+//                      cl('k je: ' + k)
+//                      cl('j je : ' + j)
+//                      cl('len je: '+ pinColumn[1].getElementsByClassName('dayDiv').length * 2)
+//                    pinColumn[1].getElementsByClassName('dayDiv')[y].classList.add(k + 1)
+//                    pinColumn[1].getElementsByClassName('dayDiv')[y].classList.add(j)
+//                    y++
+//                    if(k + 1 == (pinColumn[1].getElementsByClassName('dayDiv').length * 2)) {
+//                      col2 = 3
+//                      y = 0
+//                    }
+//                  }
+//
+//                }
+//
+//              else if(col2 == 3){
+//                  cl('3)')
+//                  // cl(j)
+//                  // cl('y je: ' + y)
+//                  // cl('ln je: ' +pinColumn[2].getElementsByClassName('dayDiv').length *3)
+//                  // cl('k je: ' + k)
+//                   if(k < (pinColumn[2].getElementsByClassName('dayDiv').length * 3)) {
+//                     cl('k je: ' + k)
+//                     cl('j je : ' + j)
+//                     cl('len je: '+ pinColumn[2].getElementsByClassName('dayDiv').length * 3)
+//                     pinColumn[2].getElementsByClassName('dayDiv')[y].classList.add(k + 1)
+//                     pinColumn[2].getElementsByClassName('dayDiv')[y].classList.add(j)
+//                     y++
+//                     if(k + 1 == (pinColumn[2].getElementsByClassName('dayDiv').length * 3)) {
+//                      col2 = 4
+//                      y = 0
+//                    }
+//                   }
+//                 }
+//
+//              else if(col2 == 4){
+//                cl('4)')
+//                // cl(j)
+//                // cl('y je: ' + y)
+//                // cl('ln je: ' +pinColumn[3].getElementsByClassName('dayDiv').length *4)
+//                // cl('k je: ' + k)
+//                   if(k < (pinColumn[3].getElementsByClassName('dayDiv').length * 4)) {
+//                     cl('k je: ' + k)
+//                     cl('j je : ' + j)
+//                     cl('len je: '+ pinColumn[3].getElementsByClassName('dayDiv').length * 4)
+//                     pinColumn[3].getElementsByClassName('dayDiv')[y].classList.add(k + 1)
+//                     pinColumn[3].getElementsByClassName('dayDiv')[y].classList.add(j)
+//                     y++
+//                     if(k + 1 == (pinColumn[3].getElementsByClassName('dayDiv').length * 4)) {
+//                       col2 = 5
+//                       y = 0
+//                     }
+//                   }
+//                 }
+// //10 bez klase
+//              else if(col2 == 5){
+//                cl('5)')
+//                // cl(j)
+//                // cl('y je: ' + y)
+//                // cl('ln je: ' +pinColumn[4].getElementsByClassName('dayDiv').length *5)
+//                // cl('k je: ' + k)
+//                   if(k < (pinColumn[4].getElementsByClassName('dayDiv').length * 5)) {
+//                     cl('k je: ' + k)
+//                     cl('j je : ' + j)
+//                     cl('len je: '+ pinColumn[4].getElementsByClassName('dayDiv').length * 5)
+//                     pinColumn[4].getElementsByClassName('dayDiv')[y].classList.add(k + 1)
+//                     pinColumn[4].getElementsByClassName('dayDiv')[y].classList.add(j)
+//                     y++
+//                     if(k + 1 == (pinColumn[4].getElementsByClassName('dayDiv').length * 5)) {
+//                       // col2 = 1
+//                       // y = 0
+//                     }
+//                   }
+//                 }
+//               }
 
           j++
           g++
@@ -882,7 +972,6 @@ var col2 = 1;
 
         backBtn.onclick = () => {
           var mainDiv;
-          console.log(parentDiv)
             if(document.getElementsByClassName('calendar')[0].getElementsByClassName('coverDiv')[0] == undefined){
               mainDiv = parentDiv
             }
