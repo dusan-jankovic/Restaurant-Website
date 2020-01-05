@@ -135,14 +135,20 @@ var calendar = document.getElementsByClassName('calendar')
         }
 
         function daysToCalendar(){
-          //get day of prvog dana tog meseca i njegov dan u nedelji, taj index nedljni koristi kao
-          //pocetnu poziciju za div
-          currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
-
+            var daysInMonth
+          //get day of first day of that month and his day in week, that weekly index use as start position
+          if(m == -2){
+            currentMonth = new Date(d.getFullYear(), d.getMonth() - 1, 01)
+            daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate()
+          }
+          else{
+            currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
+            daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate()
+          }
           var i = currentMonth.getDay()
 
           //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
-          var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
+          // var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
 
             for(i; i < daysInMonth; i++) {
               var dayEle = document.createElement('DIV')
@@ -158,10 +164,10 @@ var calendar = document.getElementsByClassName('calendar')
               dayEle.appendChild(p2)
 
               coverDiv[i].appendChild(dayEle)
+
             }
          }daysToCalendar()
    }makeCalendarGrid()
-
 
 //show only days in this month removing days from last presented month
     function removeDays(){
@@ -169,7 +175,7 @@ var calendar = document.getElementsByClassName('calendar')
       let i =  0
         for(i; i < 35; i++){
           calendarNodes[0].style.display = 'none';
-          cl(calendar[0])
+          
           calendar[0].removeChild(calendarNodes[0])
             if(i == undefined){
               i = i - 1
@@ -191,54 +197,64 @@ var calendar = document.getElementsByClassName('calendar')
       var thisMonth = d.getMonth()
       var thisYear = d.getFullYear()
 
-         if(m > 0){
-           //let know other statements that m was > than 0 by setting:
-           check = 1;
-            //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0(1)
-            if(months[thisMonth + (m)] == undefined){
-               d.setFullYear(thisYear + 1)
-               d.setMonth(0)
-               h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
-            }
-            //else if not undefined it means current month is not December and stay in this year
-            else if(months[thisMonth + (m)] != undefined){
-              h1[0].innerHTML = months[d.getMonth() + m] + ' ' + d.getFullYear()
-            }
-          }
+      if(m > 0){
+        //let know other statements that m was > than 0 by setting:
+        check = 1;
+         //if is undefined, it means it gives month index bigger than months.length and than go to next year and reset index to 0(1)
+         if(months[thisMonth + (m)] == undefined){
+            d.setFullYear(thisYear + 1)
+            d.setMonth(0)
+            h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
+         }
+         //else if not undefined it means current month is not December and stay in this year
+         else if(months[thisMonth + (m)] != undefined){
+           h1[0].innerHTML = months[d.getMonth() + m] + ' ' + d.getFullYear()
+         }
+       }
 
-          else if(m < 0){
-            //let know other statements that m was > than 0 by setting:
-            check2 = 2;
-            if(months[thisMonth + (m)] == undefined){
-              d.setFullYear(d.getFullYear() - 1)
-              d.setMonth(11)
-              h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
-            }
-            else if(months[thisMonth + (m)] != undefined) {
-              h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
-            }
-          }
+       else if(m < 0){
+         //let know other statements that m was > than 0 by setting:
+         check2 = 2;
+         if(months[thisMonth + (m)] == undefined || m == -1){
+           // cl('-1 ali na 682linija')
+           cl('1)')
+           d.setFullYear(2019)
+           d.setMonth(11)
+           currentMonth = new Date(d.getFullYear(), d.getMonth(), 01)
+           cl(currentMonth)
+           h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
+         }
+         else if(months[thisMonth + (m)] != undefined) {
+           // cl('-2')
+           cl('2)')
+           cl(currentMonth)
+           h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
+         }
+       }
 
-          else if(m == 0){
-            if(check == undefined){
-              d = new Date()
-              // d.setFullYear(d.getFullYear())
-              // d.setMonth(thisMonth)
-              h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
-            }
-            else if(check == 1){
-                d.setMonth(0)
-                d.setFullYear(d.getFullYear())
-                // d.setMonth(thisMonth)
-                h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
-                check = undefined
-            }
-            else if (check2 == 2 ){
-              d.setMonth(11)
-              // d.setMonth(thisMonth)
-              h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
-              check2 = undefined
-            }
+       else if(m == 0){
+         if(check == undefined){
+           d = new Date()
+            currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
+           // d.setFullYear(d.getFullYear())
+           // d.setMonth(thisMonth)
+           h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+         }
+         else if(check == 1){
+             d = new Date()
+             d.setMonth(0)
+             d.setFullYear(d.getFullYear())
+             // d.setMonth(thisMonth)
+             h1[0].innerHTML = months[d.getMonth()] + ' ' + d.getFullYear()
+             check = undefined
+         }
+         else if (check2 == 2 ){
+           d.setMonth(11)
+           // d.setMonth(thisMonth)
+           h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
+           check2 = undefined
+         }
+         cl(currentMonth)
           }
       }
       addHeading()
@@ -248,6 +264,7 @@ var calendar = document.getElementsByClassName('calendar')
 
       var j = currentMonth.getDay();
       var g = currentMonth.getDay();
+      console.log(currentMonth)
 
   //from events array(object) push specified props to new arrays
       for(let i = 0; i < events.length; i++) {
@@ -342,7 +359,12 @@ var calendar = document.getElementsByClassName('calendar')
                       detailsDiv[0].appendChild(thisImage)
 
                       detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
-                      detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetparent + position} ${events[index].time}  `
+                      if(m >= 0) {
+                        detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                      }
+                      else if (m < 0) {
+                        detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m) + 1].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                      }
                     }thisIndex()
                 }
               calendar[0].getElementsByClassName('dayDiv')[k].classList.add(parseInt(k+1))
@@ -578,12 +600,16 @@ var calendar = document.getElementsByClassName('calendar')
 
      function daysToCalendar(){
        //get day of first day of that month and his day in week, that weekly index use as start position
-       currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
+       if(m == -2){
+         currentMonth = new Date(d.getFullYear(), d.getMonth() - 1, 01)
+         var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i - 1
+       }
+       else{
+         currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
+         var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
+       }
 
        // var i = currentMonth.getDay()
-
-       //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
-       var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
 
          for(let i = 0; i < daysInMonth; i++) {
            var dayEle = document.createElement('DIV')
@@ -677,12 +703,19 @@ function addHeading(){
       else if(m < 0){
         //let know other statements that m was > than 0 by setting:
         check2 = 2;
-        if(months[thisMonth + (m)] == undefined){
-          d.setFullYear(d.getFullYear() - 1)
+        if(months[thisMonth + (m)] == undefined || m == -1){
+          // cl('-1 ali na 682linija')
+          cl('1)')
+          d.setFullYear(2019)
           d.setMonth(11)
+          currentMonth = new Date(d.getFullYear(), d.getMonth(), 01)
+          cl(currentMonth)
           h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
         }
         else if(months[thisMonth + (m)] != undefined) {
+          // cl('-2')
+          cl('2)')
+          cl(currentMonth)
           h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
         }
       }
@@ -690,11 +723,13 @@ function addHeading(){
       else if(m == 0){
         if(check == undefined){
           d = new Date()
+           currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
           // d.setFullYear(d.getFullYear())
           // d.setMonth(thisMonth)
           h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
         }
         else if(check == 1){
+            d = new Date()
             d.setMonth(0)
             d.setFullYear(d.getFullYear())
             // d.setMonth(thisMonth)
@@ -707,6 +742,7 @@ function addHeading(){
           h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
           check2 = undefined
         }
+        cl(currentMonth)
       }
   }
   addHeading()
@@ -825,7 +861,12 @@ var col2 = 1;
                   detailsDiv[0].appendChild(thisImage)
 
                   detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
-                  detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                  if(m >= 0) {
+                    detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                  }
+                  else if (m < 0) {
+                    detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m) + 1].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                  }
                 }thisIndex()
             }
 
@@ -844,28 +885,20 @@ var col2 = 1;
                   position = 'th'
                 }
 
-
           parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = eventsNames[j]
           //in case arrow show month from past year, use "m" to check that
-           console.log('1)' + j)
-           cl('==========')
           if(m < 0){
                if(m == -1){
                  d.setFullYear(2019)
                  d.setMonth(11)
-                 d.setDate(01)
-                  cl('==========')
                  parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML =
-                 days[j].slice(0, 3) + ' ' + months[d.getMonth()].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
+                 days[j].slice(0, 3) + ' ' + months[d.getMonth() + (m) + 1].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
                }
                else if (m == -2){
-                 d.setFullYear(2019)
-                 d.setMonth(10)
-                 d.setDate(01)
-                 console.log('3)' + days[j])
-                 cl('==========')
+                 // d.setFullYear(2019)
+                 // d.setMonth(10)
                  parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML =
-                 days[j].slice(0, 3) + ' ' + months[d.getMonth()].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
+                 days[j].slice(0, 3) + ' ' + months[d.getMonth() + (m) + 1].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
                }
           }
           else if (m >= 0) {
@@ -908,7 +941,6 @@ var col2 = 1;
                   parentDiv[0].getElementsByClassName('coverDiv')[k].style.display = 'none'
                 }
             }
-            console.log('====================')
     }
 
           pushToPinArr()
@@ -975,13 +1007,13 @@ var col2 = 1;
           }
 
     //get this date and mark that box (div) in calendar
-      function markCurrentDate() {
-      var divs = document.getElementsByClassName('coverDiv')
-      var currentDate = d.getDate()
-        for(var p = 0; p < divs.length; p++) {
-          if(p == currentDate) {
-            divs[p-1].style.background = 'rgb(253, 102, 102)'
-          }
-        }
-      }markCurrentDate()
+      // function markCurrentDate() {
+      // var divs = document.getElementsByClassName('coverDiv')
+      // var currentDate = d.getDate()
+      //   for(var p = 0; p < divs.length; p++) {
+      //     if(p == currentDate) {
+      //       divs[p-1].style.background = 'rgb(253, 102, 102)'
+      //     }
+      //   }
+      // }markCurrentDate()
   }
