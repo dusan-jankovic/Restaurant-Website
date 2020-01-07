@@ -170,6 +170,12 @@ body {
               color: $gold;
             }
           }
+          button {
+            &:active, &:focus, &:visited {
+              outline: none;
+              border: none;
+            }
+          }
           button:nth-of-type(1), button:nth-of-type(3) {
             border:none;
           }
@@ -299,22 +305,24 @@ body {
     .gif {
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform:translate(-50%,-50%);
+      left: 0;
+      transform:translateY(-50%);
       opacity: 0;
       display: none;
       animation-play-state: paused;
       animation: gif 4s 2;  ///animacija je bila na 4s
       z-index: 99;
-      width: 60px;
-      height: 60px;
+      width: 100%;
+      height: 50px;
       transition: .6s opacity;
       transform:scale(1);
       animation-fill-mode: forwards;
       transform-origin: center;
         img {
-          width: 100%;
+          width: 55px;
           height: 100%;
+          margin: 0 auto;
+          display: block;
         }
     }
     @keyframes gif {
@@ -351,12 +359,13 @@ body {
               margin: 0 9px;
               cursor: pointer;
                 i {
-                  font-size: 1.2em;
+                  font-size: 1.05em;
+                  color: #ccc;
                 }
             }
          }
         h2 {
-          font-size:2.2em;
+          font-size:1.7em;
           font-weight: lighter;
         }
         p {
@@ -365,11 +374,30 @@ body {
         img {
           display: block;
           margin-top: 15px;
-          width: 250px;
-          height: 370px;
+          width: 230px;
+          height: 330px;
           margin-bottom: 15px;
         }
+      #back-btn {
+        color: #ccc;
+      }
     }// details-div/>
+
+    @media only screen and (max-width: 380px) {
+      .details-div {
+        margin-top: 0;
+        h2 {
+          font-size:1.5em;
+        }
+        img {
+          width: 95%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          max-height: auto;
+        }
+    }
+  }
     @keyframes details {
       0% {opacity: 0;}
       100% {opacity: 1;}
@@ -403,8 +431,10 @@ body {
  }
 }
 @media only screen and (max-width:750px){
-  .events {
+  .eventsScrollX {
     overflow-x: scroll;
+  }
+  .events {
   .daysInWeek {
     width: 800px;
    li {
@@ -663,18 +693,18 @@ body {
            .coverDiv:nth-child(3n+0),
            .coverDiv {
             height: 280px !important;
-            width: 43% !important;
+            width: 39.9% !important;
             display: block;
             margin:12px 0;
              img {
                width: 100%;
-               height: 140px !important;
+               height: 170px !important;
              }
              p:first-of-type {
-               font-size: 1.1em;
+               font-size: .95em;
              }
              p:last-of-type {
-               font-size: .9em;
+               font-size: .8em;
              }
           }
       }
@@ -698,13 +728,13 @@ body {
           margin:4px 0;
            img {
              width: 100%;
-             height: 140px !important;
+             height: 160px !important;
            }
            p:first-of-type {
-             font-size: 1em;
+             font-size: .95em;
            }
            p:last-of-type {
-             font-size: .85em;
+             font-size: .8em;
            }
         }
     }

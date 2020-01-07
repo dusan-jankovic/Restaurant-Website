@@ -160,6 +160,9 @@ body {
         transition: .4s color; }
         .events .events-view div button:hover {
           color: #917952; }
+      .events .events-view div button:active, .events .events-view div button:focus, .events .events-view div button:visited {
+        outline: none;
+        border: none; }
       .events .events-view div button:nth-of-type(1), .events .events-view div button:nth-of-type(3) {
         border: none; }
       .events .events-view div button:nth-of-type(2) {
@@ -275,9 +278,9 @@ body {
   .events .gif {
     position: absolute;
     top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
     opacity: 0;
     display: none;
     -webkit-animation-play-state: paused;
@@ -285,8 +288,8 @@ body {
     -webkit-animation: gif 4s 2;
     animation: gif 4s 2;
     z-index: 99;
-    width: 60px;
-    height: 60px;
+    width: 100%;
+    height: 50px;
     -webkit-transition: .6s opacity;
     transition: .6s opacity;
     -webkit-transform: scale(1);
@@ -296,8 +299,10 @@ body {
     -webkit-transform-origin: center;
     transform-origin: center; }
     .events .gif img {
-      width: 100%;
-      height: 100%; }
+      width: 55px;
+      height: 100%;
+      margin: 0 auto;
+      display: block; }
 
 @-webkit-keyframes gif {
   0% {
@@ -378,18 +383,32 @@ body {
         margin: 0 9px;
         cursor: pointer; }
         .events .details-div ul li i {
-          font-size: 1.2em; }
+          font-size: 1.05em;
+          color: #ccc; }
     .events .details-div h2 {
-      font-size: 2.2em;
+      font-size: 1.7em;
       font-weight: lighter; }
     .events .details-div p {
       padding-left: 5px; }
     .events .details-div img {
       display: block;
       margin-top: 15px;
-      width: 250px;
-      height: 370px;
+      width: 230px;
+      height: 330px;
       margin-bottom: 15px; }
+    .events .details-div #back-btn {
+      color: #ccc; }
+  @media only screen and (max-width: 380px) {
+    .events .details-div {
+      margin-top: 0; }
+      .events .details-div h2 {
+        font-size: 1.5em; }
+      .events .details-div img {
+        width: 95%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: auto; } }
 
 @-webkit-keyframes details {
   0% {
@@ -423,19 +442,19 @@ body {
       width: 25px; } }
 
 @media only screen and (max-width: 750px) {
-  .events {
+  .eventsScrollX {
     overflow-x: scroll; }
-    .events .daysInWeek {
-      width: 800px; }
-      .events .daysInWeek li {
-        width: 170px;
-        padding-left: 3px; }
-    .events .calendar {
-      width: 800px;
-      padding: 1px 0 0; }
-    .events .calendar .coverDiv {
-      width: 111px;
-      margin: 1.5px; } }
+  .events .daysInWeek {
+    width: 800px; }
+    .events .daysInWeek li {
+      width: 170px;
+      padding-left: 3px; }
+  .events .calendar {
+    width: 800px;
+    padding: 1px 0 0; }
+  .events .calendar .coverDiv {
+    width: 111px;
+    margin: 1.5px; } }
 
 .agenda {
   display: -webkit-box;
@@ -609,7 +628,7 @@ body {
   .pinboard .coverDiv:nth-child(3n+0),
   .pinboard .coverDiv {
     height: 280px !important;
-    width: 43% !important;
+    width: 39.9% !important;
     display: block;
     margin: 12px 0; }
     .pinboard .pinColumn:first-of-type .coverDiv:nth-child(1) img,
@@ -617,17 +636,17 @@ body {
     .pinboard .coverDiv:nth-child(3n+0) img,
     .pinboard .coverDiv img {
       width: 100%;
-      height: 140px !important; }
+      height: 170px !important; }
     .pinboard .pinColumn:first-of-type .coverDiv:nth-child(1) p:first-of-type,
     .pinboard .coverDiv:nth-child(2n+2) p:first-of-type,
     .pinboard .coverDiv:nth-child(3n+0) p:first-of-type,
     .pinboard .coverDiv p:first-of-type {
-      font-size: 1.1em; }
+      font-size: .95em; }
     .pinboard .pinColumn:first-of-type .coverDiv:nth-child(1) p:last-of-type,
     .pinboard .coverDiv:nth-child(2n+2) p:last-of-type,
     .pinboard .coverDiv:nth-child(3n+0) p:last-of-type,
     .pinboard .coverDiv p:last-of-type {
-      font-size: .9em; } }
+      font-size: .8em; } }
 
 @media only screen and (max-width: 426px) {
   .pinboard .pinColumn {
@@ -649,14 +668,14 @@ body {
     .pinboard .coverDiv:nth-child(3n+0) img,
     .pinboard .coverDiv img {
       width: 100%;
-      height: 140px !important; }
+      height: 160px !important; }
     .pinboard .pinColumn:first-of-type .coverDiv:nth-child(1) p:first-of-type,
     .pinboard .coverDiv:nth-child(2n+2) p:first-of-type,
     .pinboard .coverDiv:nth-child(3n+0) p:first-of-type,
     .pinboard .coverDiv p:first-of-type {
-      font-size: 1em; }
+      font-size: .95em; }
     .pinboard .pinColumn:first-of-type .coverDiv:nth-child(1) p:last-of-type,
     .pinboard .coverDiv:nth-child(2n+2) p:last-of-type,
     .pinboard .coverDiv:nth-child(3n+0) p:last-of-type,
     .pinboard .coverDiv p:last-of-type {
-      font-size: .85em; } }
+      font-size: .8em; } }
