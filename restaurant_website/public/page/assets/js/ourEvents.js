@@ -78,79 +78,105 @@ var isActive3 = 'active'
 var cl = (x) => {
   return console.log(x)
 }
+var pass4 = 0;
 
 monthBtn.onclick = function() {
+ pass4 = 1
  if(isActive1 == 'active'){
   if(pass == 0){
     if(pass3 == 1) {
      document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
+     pinBtn.style.color = '#fff'
    }
     else if(pass2 == 1){
       document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('agenda')[0])
+      agenBtn.style.color = '#fff'
     }
-   if(document.getElementsByClassName('calendar')[0] == undefined){
+   else if(document.getElementsByClassName('calendar')[0] == undefined){
      let div = document.createElement('div')
      div.classList.add('calendar')
      document.getElementsByClassName('events')[0].appendChild(div)
    }
    document.getElementsByClassName('daysInWeek')[0].style.display = 'flex'
+   this.style.color = '#917952'
+
+   //add class to "events" div to make add scroll property with CSS
+   document.getElementsByClassName('events')[0].classList.add('eventsScrollX')
 
   //on arrow click (left, rigth) show months (with limit +- 2 months)
-   leftArrow[0].onclick = () => {
-      m--
-        if(m >= -2){
+  leftArrow[0].onclick = () => {
+    m--
+      if(m >= -2){
+        if(pass == 1){
           removeDays()
           makeCalendarGrid()
           montly()
+        } else if(pass == 0){
+            removeDays2()
+            showEvents()
+            montly2()
+          }
+      }
+      else if (m < -2){
+        m = -2
+      }
+  }
+  rightArrow[0].onclick = () => {
+    m++
+      if(m <= 2){
+       if(pass == 1){
+        removeDays()
+        makeCalendarGrid()
+        montly()
+      } else if(pass == 0){
+        removeDays2()
+        showEvents()
+        montly2()
         }
-        else if (m < -2){
-          m = -2
-        }
-   }
+    }
+      else if(m > 2){
+        m = 2
+      }
+    }
 
-   rightArrow[0].onclick = () => {
-      m++
-        if(m <= 2){
-          removeDays()
-          makeCalendarGrid()
-          montly()
-        }
-        else if(m > 2){
-          m = 2
-        }
-   }
-
-var calendar = document.getElementsByClassName('calendar')
+  var calendar = document.getElementsByClassName('calendar')
 
      function makeCalendarGrid(){
+       if(pass4 == 1){
+         var formula;
+         let calendarNode = document.createElement('div')
+         calendarNode.classList.add('calendar')
+         document.getElementsByClassName('events')[0].appendChild(calendarNode)
+       }
       //35 because calendar will be 7x5 on all devices,
       // and that way is good to match days from months to correct day in weeek
         for(let i = 0; i < 35; i++) {
           //add html elements to calendar (div);
           //number of elements (coverDiv, dayEle) will depend on number of days in current month
           var coverDiv = document.createElement('DIV')
-
           calendar[0].appendChild(coverDiv)
           coverDiv.classList.add('coverDiv')
         }
 
         function daysToCalendar(){
-            var daysInMonth
+          var daysInMonth
           //get day of first day of that month and his day in week, that weekly index use as start position
           if(m == -2){
             currentMonth = new Date(d.getFullYear(), d.getMonth() - 1, 01)
             daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate()
+            formula = daysInMonth + currentMonth.getDay() -1
           }
           else{
+            d = new Date()
             currentMonth = new Date(d.getFullYear(), d.getMonth() + (m), 01)
             daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate()
+            formula = daysInMonth + currentMonth.getDay()
           }
           var i = currentMonth.getDay()
 
           //mora da ide gore 9 za mesec a dole 10 kako bi se uskladilo
           // var daysInMonth = new Date(d.getFullYear(),  d.getMonth() + (m) +1 , 0).getDate() + i
-
-            for(i; i < daysInMonth; i++) {
+            for(i; i < formula; i++) {
               var dayEle = document.createElement('DIV')
               var p1 = document.createElement('P')
               var p2 = document.createElement('P')
@@ -164,25 +190,24 @@ var calendar = document.getElementsByClassName('calendar')
               dayEle.appendChild(p2)
 
               coverDiv[i].appendChild(dayEle)
-
             }
          }daysToCalendar()
+         pass4 = 0
    }makeCalendarGrid()
 
 //show only days in this month removing days from last presented month
     function removeDays(){
-      var calendarNodes = document.getElementsByClassName('coverDiv')
-      let i =  0
-        for(i; i < 35; i++){
-          calendarNodes[0].style.display = 'none';
-          
-          calendar[0].removeChild(calendarNodes[0])
-            if(i == undefined){
-              i = i - 1
+       if(pass == 1){
+        var calendarNodes = document.getElementsByClassName('coverDiv')
+          for(let i = 0; i < 35; i++){
+            calendarNodes[0].style.display = 'none';
+            document.getElementsByClassName('calendar')[0].removeChild(calendarNodes[0])
+              if(i == undefined){
+                i = i - 1
+              }
             }
+          }
         }
-    }
-
 
   //montly function shows events in calendar view
     function montly(){
@@ -216,18 +241,12 @@ var calendar = document.getElementsByClassName('calendar')
          //let know other statements that m was > than 0 by setting:
          check2 = 2;
          if(months[thisMonth + (m)] == undefined || m == -1){
-           // cl('-1 ali na 682linija')
-           cl('1)')
            d.setFullYear(2019)
            d.setMonth(11)
            currentMonth = new Date(d.getFullYear(), d.getMonth(), 01)
-           cl(currentMonth)
            h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
          }
          else if(months[thisMonth + (m)] != undefined) {
-           // cl('-2')
-           cl('2)')
-           cl(currentMonth)
            h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
          }
        }
@@ -254,8 +273,7 @@ var calendar = document.getElementsByClassName('calendar')
            h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
            check2 = undefined
          }
-         cl(currentMonth)
-          }
+       }
       }
       addHeading()
 
@@ -264,14 +282,12 @@ var calendar = document.getElementsByClassName('calendar')
 
       var j = currentMonth.getDay();
       var g = currentMonth.getDay();
-      console.log(currentMonth)
 
   //from events array(object) push specified props to new arrays
       for(let i = 0; i < events.length; i++) {
         eventsNames.push(events[i].name)
         eventsTimes.push(events[i].time)
     }
-
 
   //add values to days which has event, for other days add nothing
   var p2 = document.getElementsByClassName('p2')
@@ -281,7 +297,9 @@ var calendar = document.getElementsByClassName('calendar')
             }
             else {
             //on event click show user new window (page) with more details
-                p2[k].onclick = () => {
+          p2[k].onclick = () => {
+                  //remove class from "events" div to turn off scroll property
+                  document.getElementsByClassName('events')[0].classList.remove('eventsScrollX')
                   var calendar = document.getElementsByClassName('calendar')
                   var detailsDiv = document.getElementsByClassName('details-div')
                   var gif = document.getElementsByClassName('gif')
@@ -330,17 +348,24 @@ var calendar = document.getElementsByClassName('calendar')
                       var thisImage = document.createElement('IMG')
                       var thisHeading = document.createElement('H2')
                       var thisPara = document.createElement('P')
-                      var targetparent = this.event.target.parentElement.classList.item(2)
+                      var targetParent;
+
+                      if(this.event.target.parentElement.classList.length > 2){
+                        targetParent = this.event.target.parentElement.classList.item(2)
+                      } else {
+                        targetParent = this.event.target.parentElement.classList.item(1)
+                      }
+
                       var position;
 
                         //add suffix to the day
-                          if(targetparent == 1){
+                          if(targetParent == 1){
                             position = 'st'
                           }
-                          else if(targetparent == 2) {
+                          else if(targetParent == 2) {
                             position = 'nd'
                           }
-                          else if(targetparent == 3) {
+                          else if(targetParent == 3) {
                             position = 'rd'
                           }
                           else {
@@ -360,10 +385,10 @@ var calendar = document.getElementsByClassName('calendar')
 
                       detailsDiv[0].getElementsByTagName('H2')[0].innerHTML = events[index].name
                       if(m >= 0) {
-                        detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                        detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m)].slice(0, 3)} ${targetParent + position} ${events[index].time} `
                       }
                       else if (m < 0) {
-                        detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m) + 1].slice(0, 3)} ${indexPlace + position} ${events[index].time} `
+                        detailsDiv[0].getElementsByTagName('P')[0].innerHTML = ` ${days[index]} ${months[d.getMonth() + (m) + 1].slice(0, 3)} ${targetParent + position} ${events[index].time} `
                       }
                     }thisIndex()
                 }
@@ -373,7 +398,6 @@ var calendar = document.getElementsByClassName('calendar')
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = eventsNames[j]
                //add class for each element (0 - 6) and use that class as index to get data for details page
               calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].classList.add(j)
-
               j++
               g++
                  if (j == eventsTimes.length && g == days.length) {
@@ -382,8 +406,7 @@ var calendar = document.getElementsByClassName('calendar')
                  }
                    else if(eventsTimes[j] == undefined && eventsNames[j] == undefined){
                      calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].innerHTML = '';
-                      calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = '';
-
+                     calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[1].innerHTML = '';
                    }
                      else if (days[g-1] == "Wednesday" || days[g-1] == "Thursday" || days[g-1] == "Friday" ) {
                        calendar[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('p')[0].style.display = 'none'
@@ -393,27 +416,28 @@ var calendar = document.getElementsByClassName('calendar')
         }
 
         //get this date and mark that box (div) in calendar
-          // function markCurrentDate() {
-          //   if(d.getMonth == )
-          //     var divs = document.getElementsByClassName('coverDiv')
-          //     var currentDate = d.getDate()
-          //       for(var p = 0; p < divs.length; p++) {
-          //         if(p == currentDate) {
-          //           console.log(divs.length)
-          //           divs[p-1].style.background = 'rgb(253, 102, 102)'
-          //           divs[p-1].getElementsByClassName('dayDiv')[0].style.height = '98%'
-          //           divs[p-1].getElementsByClassName('dayDiv')[0].style.width = '98.2%'
-          //           divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontSize = '18px'
-          //           divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.fontWeight = 'bold'
-          //           divs[p-1].getElementsByClassName('dayDiv')[0].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
-          //         }
-          //       }
-          // }markCurrentDate()
+          function markCurrentDate() {
+            if(m == 0) {
+              let d = new Date()
+              var divs = document.getElementsByClassName('dayDiv')
+              var currentDate = d.getDate()
+                for(var p = 0; p < divs.length; p++) {
+                  if(p == currentDate) {
+                    divs[p-1].parentElement.style.background = 'rgb(253, 102, 102)'
+                    divs[p-1].style.height = '98%'
+                    divs[p-1].style.width = '98.2%'
+                    divs[p-1].getElementsByTagName('span')[0].style.fontSize = '18px'
+                    divs[p-1].getElementsByTagName('span')[0].style.fontWeight = 'bold'
+                    divs[p-1].getElementsByTagName('span')[0].style.color = 'rgb(253, 102, 102)'
+                    divs[p-1].getElementsByTagName('p')[0].style.marginTop = '35px'
+                  }
+                }
+              }
+          }markCurrentDate()
       }montly()
-
+      pass++
       pass2 = 0
       pass3 = 0
-      pass++
     }
     isActive1 = ''
     isActive2 = 'active'
@@ -426,13 +450,13 @@ var calendar = document.getElementsByClassName('calendar')
   function showOneOfTheViews() {
     let div = document.createElement('div')
     div.classList.add('agenda')
+    agenBtn.style.color = '#917952'
     document.getElementsByClassName('events')[0].appendChild(div)
       pass2++
       showEvents()
-      montly()
+      montly2()
       isActive2 = ''
   }showOneOfTheViews()
-
 
   agenBtn.onclick = function(){
     if(isActive2 == 'active'){
@@ -440,18 +464,23 @@ var calendar = document.getElementsByClassName('calendar')
        if(pass == 1){
          document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('calendar')[0])
          document.getElementsByClassName('daysInWeek')[0].style.display = 'none'
+         monthBtn.style.color = '#fff'
          } else if(pass3 == 1) {
            document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('pinboard')[0])
+           pinBtn.style.color = '#fff'
          }
          let div = document.createElement('div')
          div.classList.add('agenda')
          document.getElementsByClassName('events')[0].appendChild(div)
+         this.style.color = '#917952'
+         //remove class from "events" div to turn off scroll property
+         document.getElementsByClassName('events')[0].classList.remove('eventsScrollX')
       }
         pass = 0
         pass3 = 0
         pass2++
         showEvents()
-        montly()
+        montly2()
         isActive2 = ''
         isActive1 = 'active'
         isActive3 = 'active'
@@ -467,7 +496,6 @@ var calendar = document.getElementsByClassName('calendar')
   //kArr will have values of k variable, from daysInMonth loop
   var kArr = []
   var pinColumn = document.getElementsByClassName('pinColumn')
-
   //add class to "dayDiv" for pinboard view
   function pushToPinArr(){
        if(pass3 == 1){
@@ -498,18 +526,23 @@ var calendar = document.getElementsByClassName('calendar')
           if(pass == 1){
             document.getElementsByClassName('daysInWeek')[0].style.display = 'none'
             document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('calendar')[0])
+            monthBtn.style.color = '#fff'
           } else if(pass2 == 1){
             document.getElementsByClassName('events')[0].removeChild(document.getElementsByClassName('agenda')[0])
+            agenBtn.style.color = '#fff'
           }
           let div = document.createElement('div')
           div.classList.add('pinboard')
           document.getElementsByClassName('events')[0].appendChild(div)
+          //remove class from "events" div to turn off scroll property
+          document.getElementsByClassName('events')[0].classList.remove('eventsScrollX')
+          this.style.color = '#917952'
       }
         pass = 0
         pass2 = 0
         pass3++
         showEvents()
-        montly()
+        montly2()
         isActive3 = ''
         isActive1 = 'active'
         isActive2 = 'active'
@@ -517,42 +550,35 @@ var calendar = document.getElementsByClassName('calendar')
      else {}
   }
 
-  //on arrow click (left, rigth) show months (with limit +- 2 months)
-  //arrowType variable for passing value (right / left) to function to let her know which one is triggered
-  var arrowType;
-
-   leftArrow[0].onclick = () => {
-     arrowType = 'left'
-      m--
-        if(m >= -2){
-          removeDays2()
-          showEvents()
-          montly()
-        }
-        else if (m < -2){
-          m = -2
-        }
-   }
-
-   rightArrow[0].onclick = () => {
-     arrowType = 'right'
-      m++
-        if(m <= 2){
-          removeDays2()
-          showEvents()
-          montly()
-        }
-        else if(m > 2){
-          m = 2
-        }
-   }
+  leftArrow[0].onclick = () => {
+    m--
+      if(m >= -2){
+        removeDays2()
+        showEvents()
+        montly2()
+      }
+      else if (m < -2){
+        m = -2
+      }
+  }
+  rightArrow[0].onclick = () => {
+    m++
+      if(m <= 2){
+        removeDays2()
+        showEvents()
+        montly2()
+      }
+      else if(m > 2){
+        m = 2
+      }
+    }
 
   var parentDiv;
 
   //show only days in this month removing days from last presented month
    function removeDays2(){
         var parentsNodes = document.getElementsByClassName('coverDiv')
-         if(pass3 != 1){
+         if(pass2 == 1){
           for(let i = 0; i < daysInMonth; i++){
             parentsNodes[0].style.display = 'none'
             parentDiv[0].removeChild(parentsNodes[0])
@@ -561,7 +587,7 @@ var calendar = document.getElementsByClassName('calendar')
               }
           }
         }
-        else if (pass3 == 1){
+        else if(pass3 == 1){
           parentsCol = document.getElementsByClassName('pinColumn')
           dayArr = []
           kArr = []
@@ -673,7 +699,7 @@ var check2;
 var y = 0;
 
 //display data
-function montly(){
+function montly2(){
   //show heading
   var h1 = document.getElementsByClassName('day-month')
   var thisMonth = d.getMonth()
@@ -704,18 +730,12 @@ function addHeading(){
         //let know other statements that m was > than 0 by setting:
         check2 = 2;
         if(months[thisMonth + (m)] == undefined || m == -1){
-          // cl('-1 ali na 682linija')
-          cl('1)')
           d.setFullYear(2019)
           d.setMonth(11)
           currentMonth = new Date(d.getFullYear(), d.getMonth(), 01)
-          cl(currentMonth)
           h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
         }
         else if(months[thisMonth + (m)] != undefined) {
-          // cl('-2')
-          cl('2)')
-          cl(currentMonth)
           h1[0].innerHTML = months[d.getMonth() + (m) +1] + ' ' + d.getFullYear()
         }
       }
@@ -742,7 +762,6 @@ function addHeading(){
           h1[0].innerHTML = months[d.getMonth() + (m)] + ' ' + d.getFullYear()
           check2 = undefined
         }
-        cl(currentMonth)
       }
   }
   addHeading()
@@ -906,8 +925,6 @@ var col2 = 1;
             days[j].slice(0, 3) + ' ' + months[d.getMonth() + (m)].slice(0, 3) + ' ' + parseInt(k+1) + position + ' ' + eventsTimes[j]
           }
 
-          // cl(d.getFullYear())
-          // cl(m)
           parentDiv[0].getElementsByClassName('dayDiv')[k].getElementsByTagName('img')[0].setAttribute('src', eventsImages[j])
            //add class for each element (0 - 6) and use that class as index to get data for details page
 
@@ -955,6 +972,8 @@ var col2 = 1;
             }
               else if(document.getElementsByClassName('calendar')[0].getElementsByClassName('coverDiv')[0] != undefined){
                 mainDiv = document.getElementsByClassName('calendar')
+                //add class to "events" div to make add scroll property with CSS
+                document.getElementsByClassName('events')[0].classList.add('eventsScrollX')
               }
           var detailsDiv = document.getElementsByClassName('details-div')
           var gif = document.getElementsByClassName('gif')
@@ -1007,13 +1026,16 @@ var col2 = 1;
           }
 
     //get this date and mark that box (div) in calendar
-      // function markCurrentDate() {
-      // var divs = document.getElementsByClassName('coverDiv')
-      // var currentDate = d.getDate()
-      //   for(var p = 0; p < divs.length; p++) {
-      //     if(p == currentDate) {
-      //       divs[p-1].style.background = 'rgb(253, 102, 102)'
-      //     }
-      //   }
-      // }markCurrentDate()
+      function markCurrentDate() {
+      var divs = document.getElementsByClassName('coverDiv')
+      let d = new Date()
+      var currentDate = d.getDate()
+      if(m == 0){
+        for(var p = 0; p < divs.length; p++) {
+          if(p == currentDate) {
+            divs[p-1].style.background = 'rgb(253, 102, 102)'
+          }
+        }
+      }
+    }markCurrentDate()
   }
