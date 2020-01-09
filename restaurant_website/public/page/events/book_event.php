@@ -49,7 +49,7 @@
            </div>
 
            <div class='form-box'>
-             <form action="index.html" method="post">
+             <form action="book_event_data.php" method="post">
               <h2>Your Contact Information</h2>
               <div class='typeField'>
                <label for="fname">First name</label>
@@ -114,8 +114,8 @@
               </div>
 
                <div class='typeField'>
-                <label for='aditional_info'>Is there any additional information you would like to add?</label>
-                  <textarea type='text' name='aditional_info' id='aditional_info'></textarea>
+                <label for='additional_info'>Is there any additional information you would like to add?</label>
+                  <textarea type='text' name='additional_info' id='additional_info'></textarea>
                     <button type='submit' name='submit' id='submitBtn'>Submit</button>
                 </div>
              </form>
