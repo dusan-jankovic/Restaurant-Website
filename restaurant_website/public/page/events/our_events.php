@@ -83,7 +83,8 @@
 
       <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
       <script>
-        var deepFile = 0
+        var filePath = '../'
+        var sliderSize = 'x'
       </script>
       <script src='../assets/js/header.js'></script>
       <script src='../assets/js/experience.js'></script>
