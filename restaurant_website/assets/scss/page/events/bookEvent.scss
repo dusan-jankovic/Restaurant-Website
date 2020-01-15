@@ -190,6 +190,12 @@ body {
    h2:nth-of-type(2){
      margin-top: 55px;
    }
+   .req-inst {
+     text-align: right;
+     width: 100%;
+     font-size: .7em;
+     font-style: italic;
+   }
     .typeField {
       width: 80%;
       padding-left: 5%;
@@ -229,6 +235,7 @@ body {
          display: flex;
          align-items: center;
          justify-content: flex-end;
+         flex-wrap: wrap;
        }
        #event_date, #stime, #etime {
        }
@@ -252,7 +259,7 @@ body {
        input#nOp {
          width: 30%;
        }
-       #aditional_info {
+       #additional_info {
          width: 100%;
        }
        button {
@@ -281,6 +288,14 @@ body {
          content: '';
          display: block;
        }
+       .input-errors {
+         color: $gold;
+         width: 100%;
+         display: block;
+         text-align: right;
+         margin: 3px;
+         font-size: .8em;
+       }
     }
 }
 
@@ -296,5 +311,63 @@ body {
          color: #555555;
        }
     }
+}
+
+@media only screen and (max-width:990px){
+ .form-box {
+   padding-left: 2%;
+   .typeField {
+      width: 95%;
+      padding-left: 5px;
+      margin-top: 25px;
+      div {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      label {
+        font-size: .8em;
+      }
+      input, textarea {
+        border-radius: 3.5px;
+        width: 100%;
+        height: 34px;
+      }
+      #event_date {
+        width: 85%;
+        margin-right: 0%;
+      }
+      input#nOp {
+          width: 100%;
+      }
+      i {
+        display: none;
+      }
+      select, #event_date {
+       width: 100%;
+       margin-right: 0%;
+     }
+     .input-errors {
+       text-align: left;
+       padding-left: 10px;
+     }
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  .req-inst {
+     padding-right:20px;
+     padding-left: 5px;
+     text-align: left;
+  }
+ }
+ .close {
+    position: absolute;
+    top: 5px;
+    right: 2%;
+     i {
+       font-size: 1.8em;
+       transition: .5s color;
+    }
+ }
 }
 //bookEvent - End
