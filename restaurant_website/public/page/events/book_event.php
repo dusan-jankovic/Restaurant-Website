@@ -13,8 +13,21 @@
 
    <?php  $deepFile = 1; ?>
    <?php include '../../header.php'; ?>
-   <?php include 'book_event_data.php' ?>
+   <script>
 
+    var defaultCl = document.getElementsByClassName("default")
+
+            function addClass(){
+              if(event.target.classList.length == 1) {
+                for(let i = 0; i < defaultCl.length; i++) {
+                  defaultCl[i].classList.remove("current")
+                }
+                event.target.classList.add("current")
+              }
+            }
+
+   </script>
+   <?php include 'book_event_data.php'; ?>
 
          <main>
            <div class="slide-show">
@@ -29,22 +42,24 @@
 
            <div class="bookEvent">
              <h3>The Latest</h3>
-               <a href="" class="section-a1">
+               <a class="section-a1">
                   <section>
                     <div>
                       <img src="../assets/images/latest1.jpg" alt="">
                     </div>
                        <h4>West Hollywood</h4>
-                         <button id='westHollywood'>Inquire now</button>
+                         <button class='default' onclick = "addClass()" id='westHollywood'>Inquire now</button>
+                          <i class='empty'></i>
                   </section>
                 </a>
-                <a href="" class="section-a2">
+                <a class="section-a2">
                   <section>
                     <div>
                       <img src="../assets/images/latest2.jpg" alt="">
                     </div>
                        <h4>Scottsdale</h4>
-                         <button id='scottsdale'>Inquire now</button>
+                         <button class='default' onclick = "addClass()" id='scottsdale'>Inquire now</button>
+                          <i class='empty'></i>
                   </section>
                 </a>
            </div>
@@ -94,7 +109,7 @@
               <div class='typeField'>
                <label for="event_date">Event Date *</label>
                 <div>
-                   <input id='event_date' type="text" name='event_date' value="<?php echo htmlspecialchars($event_date); ?>">
+                   <input placeholder="XXXX-MM-DD" id='event_date' type="text" name='event_date' value="<?php echo htmlspecialchars($event_date); ?>">
                     <i class="fa fa-calendar"></i>
                       <p class="input-errors"><?php echo $errors["event_date"]; ?></p>
                 </div>
@@ -135,7 +150,7 @@
                 </div>
              </form>
 
-             <div class="close">
+             <div class="close close-form">
                <i class='fa fa-close'></i>
              </div>
          </main>
@@ -148,7 +163,7 @@
  <script src='../assets/js/header.js'></script>
  <script src='../assets/js/experience.js'></script>
  <script src='../assets/js/bookEvent.js'></script>
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </body>
 </html>
