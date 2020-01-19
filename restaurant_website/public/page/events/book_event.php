@@ -13,20 +13,6 @@
 
    <?php  $deepFile = 1; ?>
    <?php include '../../header.php'; ?>
-   <script>
-
-    var defaultCl = document.getElementsByClassName("default")
-
-            function addClass(){
-              if(event.target.classList.length == 1) {
-                for(let i = 0; i < defaultCl.length; i++) {
-                  defaultCl[i].classList.remove("current")
-                }
-                event.target.classList.add("current")
-              }
-            }
-
-   </script>
    <?php include 'book_event_data.php'; ?>
 
          <main>
@@ -48,8 +34,7 @@
                       <img src="../assets/images/latest1.jpg" alt="">
                     </div>
                        <h4>West Hollywood</h4>
-                         <button class='default' onclick = "addClass()" id='westHollywood'>Inquire now</button>
-                          <i class='empty'></i>
+                         <button class='default' id='westHollywood'>Inquire now</button>
                   </section>
                 </a>
                 <a class="section-a2">
@@ -58,8 +43,7 @@
                       <img src="../assets/images/latest2.jpg" alt="">
                     </div>
                        <h4>Scottsdale</h4>
-                         <button class='default' onclick = "addClass()" id='scottsdale'>Inquire now</button>
-                          <i class='empty'></i>
+                         <button class='default' id='scottsdale'>Inquire now</button>
                   </section>
                 </a>
            </div>
