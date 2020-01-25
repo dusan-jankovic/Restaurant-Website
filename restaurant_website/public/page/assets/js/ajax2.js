@@ -168,7 +168,7 @@ $('document').ready(function(){
       if(catchedItems.length == 0){
          $.ajax({
              type:"POST",
-             url: "book_event_data_la.php",
+             url: "book_event_data_sc.php",
              data: $(".form").serialize(), // get all form field value in serialize form
              success: function(){
                //$("#ajax-form").fadeOut();
