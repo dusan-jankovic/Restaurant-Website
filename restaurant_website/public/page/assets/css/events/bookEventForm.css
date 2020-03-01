@@ -1,0 +1,161 @@
+body {
+  background-image: url("../../images/background_small.png");
+  background-size: 300px; }
+
+.title {
+  margin-top: 180px;
+  margin-left: 100px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.6);
+  display: inline-block;
+  letter-spacing: 1.9px;
+  font-weight: lighter; }
+
+@media only screen and (max-width: 990px) {
+  .title {
+    margin-left: 15px; } }
+
+@media only screen and (max-width: 416px) {
+  .title {
+    margin-top: 60px; } }
+
+.form-box {
+  display: -webkit-box;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding-left: 15%;
+  margin-top: 20px; }
+  .form-box form {
+    width: 60%; }
+  .form-box h2 {
+    font-weight: 200;
+    margin-top: 50px;
+    font-size: 1.7em; }
+  .form-box h2:nth-of-type(2) {
+    margin-top: 55px; }
+  .form-box .req-inst {
+    text-align: right;
+    width: 100%;
+    font-size: .7em;
+    font-style: italic; }
+  .form-box .typeField {
+    width: 100%;
+    padding-left: 5%;
+    margin-top: 15px; }
+    .form-box .typeField label {
+      font-size: .85em; }
+    .form-box .typeField *:not(label) {
+      float: right; }
+    .form-box .typeField input {
+      padding: 5px 10px;
+      border-radius: 4px;
+      border: 0px;
+      width: 55%;
+      height: 30px;
+      color: #555555; }
+      .form-box .typeField input:focus {
+        box-shadow: 0 0 6px #70e3f1;
+        outline: none; }
+    .form-box .typeField .eType {
+      width: 100%; }
+    .form-box .typeField textarea {
+      resize: vertical;
+      border-radius: 4px;
+      height: 45px;
+      color: #555555; }
+      .form-box .typeField textarea:focus {
+        box-shadow: 0 0 6px #70e3f1;
+        outline: none; }
+    .form-box .typeField div {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: end;
+      justify-content: flex-end;
+      flex-wrap: wrap; }
+    .form-box .typeField select {
+      padding: 5px 10px;
+      color: #555555; }
+      .form-box .typeField select:focus {
+        box-shadow: 0 0 6px #70e3f1;
+        outline: none; }
+      .form-box .typeField select option {
+        color: #fff;
+        padding: 2px 5px;
+        background: #555555; }
+    .form-box .typeField i {
+      color: #555555;
+      padding: 5px; }
+    .form-box .typeField input#nOp {
+      width: 30%; }
+    .form-box .typeField #additional_info {
+      width: 100%; }
+    .form-box .typeField button {
+      float: left;
+      padding: 6px 12px;
+      background: #fff;
+      font-size: .9em;
+      text-transform: uppercase;
+      margin-top: 20px;
+      margin-bottom: 60px;
+      color: rgba(0, 0, 0, 0.8);
+      border: none;
+      border-radius: 5px;
+      -webkit-transition: .5s background;
+      transition: .5s background; }
+      .form-box .typeField button:focus {
+        outline: none;
+        background: #917952; }
+      .form-box .typeField button:hover {
+        background: #555555;
+        cursor: pointer; }
+    .form-box .typeField::after {
+      clear: both;
+      content: '';
+      display: block; }
+    .form-box .typeField .input-errors {
+      color: #917952;
+      width: 100%;
+      display: block;
+      text-align: right;
+      margin: 3px;
+      font-size: .8em; }
+
+@media only screen and (max-width: 990px) {
+  .form-box {
+    padding-left: 2%; }
+    .form-box form {
+      width: 90%; }
+    .form-box .typeField {
+      padding-left: 5px;
+      margin-top: 25px; }
+      .form-box .typeField div {
+        width: 100%;
+        -webkit-box-pack: start;
+        justify-content: flex-start; }
+      .form-box .typeField label {
+        font-size: .8em; }
+      .form-box .typeField input, .form-box .typeField textarea {
+        border-radius: 3.5px;
+        width: 100%;
+        height: 34px; }
+      .form-box .typeField #event_date {
+        width: 85%;
+        margin-right: 0%; }
+      .form-box .typeField input#nOp {
+        width: 100%; }
+      .form-box .typeField i {
+        display: none; }
+      .form-box .typeField select, .form-box .typeField #event_date {
+        width: 100%;
+        margin-right: 0%; }
+      .form-box .typeField .input-errors {
+        text-align: left;
+        padding-left: 10px; }
+    .form-box h2 {
+      font-size: 1.6em; }
+    .form-box .req-inst {
+      padding-right: 20px;
+      padding-left: 5px;
+      text-align: left; } }

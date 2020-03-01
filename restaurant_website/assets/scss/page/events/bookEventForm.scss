@@ -1,0 +1,202 @@
+@import '../variables';
+
+body {
+  background-image: url('../../images/background_small.png');
+  background-size: 300px;
+}
+.title {
+  margin-top: 180px;
+  margin-left: 100px;
+  border-bottom: .5px solid rgba(255,255,255,.6);
+  display: inline-block;
+  letter-spacing: 1.9px;
+  font-weight: lighter;
+}
+@media only screen and (max-width: 990px) {
+  .title {
+    margin-left: 15px;
+  }
+}
+@media only screen and (max-width: 416px) {
+  .title {
+    margin-top: 60px;
+  }
+}
+//form-box begin
+.form-box {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding-left: 15%;
+  margin-top: 20px;
+    form {
+      width: 60%;
+    }
+   h2{
+     font-weight: 200;
+     margin-top: 50px;
+     font-size: 1.7em;
+   }
+   h2:nth-of-type(2){
+     margin-top: 55px;
+   }
+   .req-inst {
+     text-align: right;
+     width: 100%;
+     font-size: .7em;
+     font-style: italic;
+   }
+    .typeField {
+      width: 100%;
+      padding-left: 5%;
+      margin-top: 15px;
+       label {
+         font-size: .85em;
+       }
+       *:not(label){
+         float: right;
+       }
+       input {
+         padding: 5px 10px;
+         border-radius: 4px;
+         border: 0px;
+         width: 55%;
+         height: 30px;
+         color: #555555;
+            &:focus {
+              box-shadow: 0 0 6px #70e3f1;
+              outline: none;
+            }
+       }
+       .eType {
+         width: 100%;
+       }
+       textarea {
+         resize: vertical;
+         border-radius: 4px;
+         height: 45px;
+         color: #555555;
+           &:focus {
+             box-shadow: 0 0 6px #70e3f1;
+             outline: none;
+           }
+       }
+       div {
+         display: flex;
+         align-items: center;
+         justify-content: flex-end;
+         flex-wrap: wrap;
+       }
+       #event_date, #stime, #etime {
+       }
+       select {
+         padding: 5px 10px;
+         color: #555555;
+           &:focus {
+              box-shadow: 0 0 6px #70e3f1;
+              outline: none;
+            }
+            option {
+              color: #fff;
+              padding: 2px 5px;
+              background: #555555;
+            }
+       }
+        i {
+         color:#555555;
+         padding: 5px;
+       }
+       input#nOp {
+         width: 30%;
+       }
+       #additional_info {
+         width: 100%;
+       }
+       button {
+         float: left;
+         padding: 6px 12px;
+         background: #fff;
+         font-size: .9em;
+         text-transform: uppercase;
+         margin-top: 20px;
+         margin-bottom: 60px;
+         color: rgba(0,0,0,.8);
+         border:none;
+         border-radius: 5px;
+         transition: .5s background;
+          &:focus {
+            outline: none;
+            background: $gold;
+          }
+          &:hover {
+            background: #555555;
+            cursor: pointer;
+          }
+       }
+       &::after {
+         clear: both;
+         content: '';
+         display: block;
+       }
+       .input-errors {
+         color: $gold;
+         width: 100%;
+         display: block;
+         text-align: right;
+         margin: 3px;
+         font-size: .8em;
+       }
+    }
+}
+
+@media only screen and (max-width:990px){
+ .form-box {
+   padding-left: 2%;
+   form {
+     width: 90%;
+   }
+   .typeField {
+      padding-left: 5px;
+      margin-top: 25px;
+      div {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      label {
+        font-size: .8em;
+      }
+      input, textarea {
+        border-radius: 3.5px;
+        width: 100%;
+        height: 34px;
+      }
+      #event_date {
+        width: 85%;
+        margin-right: 0%;
+      }
+      input#nOp {
+          width: 100%;
+      }
+      i {
+        display: none;
+      }
+      select, #event_date {
+       width: 100%;
+       margin-right: 0%;
+     }
+     .input-errors {
+       text-align: left;
+       padding-left: 10px;
+     }
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  .req-inst {
+     padding-right:20px;
+     padding-left: 5px;
+     text-align: left;
+  }
+ }
+}
+//form-box begin - End

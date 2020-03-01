@@ -1,10 +1,22 @@
 <header>
   <div class="header-notification">
-    <p>Our Scottsdale location is now <span>OPEN</span> | <a href="#">Reservations</a><i id='close' class="fa fa-close"></i></p>
+    <p>Our Scottsdale location is now <span>OPEN</span> | <a href="https://www.opentable.com/restref/client/?restref=150842" target="_blank">Reservations</a><i id='close' class="fa fa-close"></i></p>
   </div>
   <nav>
     <div class="logo">
-      <img src="assets/images/logo.png" alt="website_logo_image">
+      <?php
+      //code for solving problem with logo image path
+      //it will trow error "$deepFile is undefined" which is not what I need, so turn it off B)
+      error_reporting(0);
+
+        if($deepFile == 1) {
+          echo "<img src='../../assets/images/logo.png' alt='website_logo_image'>";
+        }
+          else {
+            echo "<img src='assets/images/logo.png' alt='website_logo_image'>";
+          }
+
+        ?>
     </div>
     <div class="header-menu">
       <ul class='main-ul'>
@@ -38,7 +50,7 @@
             </ul>
         </li>
         <li><a href="">Careers</a></li>
-        <li><a href="" class='reservation-button'>Reservations</a></li>
+        <li><a href="https://www.opentable.com/restref/client/?restref=150842" target="_blank" class='reservation-button'>Reservations</a></li>
       </ul>
     </div>
 
