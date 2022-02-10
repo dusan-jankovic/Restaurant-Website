@@ -13,7 +13,7 @@
     "gulp": "^3.9.1",
     "gulp-cleancss": "^0.2.2",
     "gulp-sourcemaps": "^2.6.5",
-    "node-sass": "^4.13.0"
+    "node-sass": "^7.0.0"
   },
   "devDependencies": {
     "gulp-autoprefixer": "^7.0.1",
