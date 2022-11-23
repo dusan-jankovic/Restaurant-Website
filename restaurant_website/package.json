@@ -9,7 +9,7 @@
   "author": "Dusan",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.10",
     "gulp": "^3.9.1",
     "gulp-cleancss": "^0.2.2",
     "gulp-sourcemaps": "^2.6.5",
